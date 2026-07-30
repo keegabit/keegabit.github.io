@@ -79,8 +79,8 @@
   width: min(100%, 1180px);
   min-height: 100vh;
   margin: 0 auto;
-  border-right: 1px solid var(--line);
-  border-left: 1px solid var(--line);
+  border-right: 2px solid var(--line);
+  border-left: 2px solid var(--line);
   background: rgba(1, 5, 3, 0.82);
   box-shadow:
     inset 0 0 100px rgba(0, 0, 0, 0.8),
@@ -96,7 +96,7 @@
   padding: 10px 14px;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 2px solid var(--line);
   background: rgba(1, 5, 3, 0.94);
   backdrop-filter: blur(8px);
 }
@@ -129,7 +129,7 @@
 
 .terminal-section {
   padding: 76px 18px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 2px solid var(--line);
 }
 
 .hero {
@@ -194,7 +194,8 @@
   min-height: 48px;
   padding: 0 15px;
   place-items: center;
-  border: 1px solid var(--green);
+  border: 2px solid var(--green);
+  border-radius: 6px;
   background: var(--green-faint);
   font-size: 0.72rem;
   font-weight: 600;
@@ -214,7 +215,9 @@
 }
 
 .system-panel {
-  border: 1px solid var(--line);
+  overflow: hidden;
+  border: 2px solid var(--line);
+  border-radius: 8px;
   background: var(--panel);
   box-shadow:
     inset 0 0 35px rgba(44, 143, 69, 0.08),
@@ -227,7 +230,7 @@
   padding: 0 12px;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 2px solid var(--line);
   font-size: 0.62rem;
 }
 
@@ -237,7 +240,7 @@
   aspect-ratio: 1;
   margin: 32px auto;
   overflow: hidden;
-  border: 1px solid var(--green);
+  border: 2px solid var(--green);
   border-radius: 50%;
   background:
     linear-gradient(transparent 49.7%, var(--line) 50%, transparent 50.3%),
@@ -310,7 +313,7 @@
 
 .system-list {
   margin: 0;
-  border-top: 1px solid var(--line);
+  border-top: 2px solid var(--line);
 }
 
 .system-list div,
@@ -356,7 +359,9 @@
 }
 
 .project-terminal {
-  border: 1px solid var(--line);
+  overflow: hidden;
+  border: 2px solid var(--line);
+  border-radius: 8px;
   background: var(--panel);
 }
 
@@ -365,7 +370,7 @@
   display: block;
   min-height: 220px;
   overflow: hidden;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 2px solid var(--line);
   background: var(--black);
 }
 
@@ -398,7 +403,8 @@
   right: 10px;
   bottom: 9px;
   padding: 4px 7px;
-  border: 1px solid var(--green);
+  border: 2px solid var(--green);
+  border-radius: 4px;
   background: rgba(1, 5, 3, 0.82);
   font-size: 0.56rem;
 }
@@ -443,7 +449,9 @@
 
 .profile-image {
   position: relative;
-  border: 1px solid var(--line);
+  overflow: hidden;
+  border: 2px solid var(--line);
+  border-radius: 8px;
   background: var(--panel);
 }
 
@@ -472,11 +480,15 @@
 
 .profile-data dl {
   margin: 0;
-  border: 1px solid var(--line);
+  overflow: hidden;
+  border: 2px solid var(--line);
+  border-radius: 6px;
 }
 
 .link-list {
-  border-top: 1px solid var(--line);
+  overflow: hidden;
+  border: 2px solid var(--line);
+  border-radius: 8px;
 }
 
 .link-list a {
@@ -486,7 +498,11 @@
   padding: 0 8px;
   align-items: center;
   gap: 8px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 2px solid var(--line);
+}
+
+.link-list a:last-child {
+  border-bottom: 0;
 }
 
 .link-list a:hover {
