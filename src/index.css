@@ -1,26 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
-  --paper: #f7f3e9;
-  --ink: #191918;
-  --muted: #6e6a61;
-  --orange: #ff5c35;
-  --acid: #c7ff55;
-  --sky: #76d7ff;
-  --lilac: #c9b8ff;
-  --line: rgba(25, 25, 24, 0.18);
-  --sans: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --serif: 'Instrument Serif', Georgia, serif;
-  --mono: 'DM Mono', 'SFMono-Regular', Consolas, monospace;
-  color: var(--ink);
-  background: var(--paper);
-  font-family: var(--sans);
+  --black: #010503;
+  --panel: #031009;
+  --green: #6dff8e;
+  --green-bright: #a1ffb5;
+  --green-dim: #2c8f45;
+  --green-faint: rgba(109, 255, 142, 0.12);
+  --line: rgba(109, 255, 142, 0.42);
+  color: var(--green);
+  background: var(--black);
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 *,
@@ -30,7 +26,7 @@
 }
 
 html {
-  scroll-padding-top: 84px;
+  scroll-padding-top: 70px;
 }
 
 body {
@@ -38,19 +34,7 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  background:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px),
-    var(--paper);
-  background-size: 42px 42px;
-}
-
-body::before {
-  position: fixed;
-  z-index: -1;
-  inset: 0;
-  background: rgba(247, 243, 233, 0.89);
-  content: '';
+  background: var(--black);
 }
 
 button,
@@ -69,12 +53,12 @@ img {
 }
 
 ::selection {
-  color: var(--ink);
-  background: var(--acid);
+  color: var(--black);
+  background: var(--green);
 }
 
 :focus-visible {
-  outline: 3px solid var(--orange);
+  outline: 2px solid var(--green-bright);
   outline-offset: 4px;
 }
 
