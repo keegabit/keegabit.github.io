@@ -1,29 +1,26 @@
 {
-  "name": "keegabit",
-  "version": "1.0.0",
-  "description": "A better alternative to linktree",
+  "name": "keegabit-portfolio",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.27.0",
   "type": "module",
-  "main": "src/main.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
     "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/thedinosoar/keegabit.git"
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/thedinosoar/keegabit/issues"
-  },
-  "homepage": "https://github.com/thedinosoar/keegabit#readme",
   "devDependencies": {
-    "@types/node": "^24.2.1",
-    "terser": "^5.43.1",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.1"
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1"
   }
 }
