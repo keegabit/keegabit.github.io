@@ -1,22 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap');
 
 :root {
-  --black: #010503;
-  --panel: #031009;
-  --green: #6dff8e;
-  --green-bright: #a1ffb5;
-  --green-dim: #2c8f45;
-  --green-faint: rgba(109, 255, 142, 0.12);
-  --line: rgba(109, 255, 142, 0.42);
-  color: var(--green);
-  background: var(--black);
-  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  --ink: #223047;
+  --muted: #65758b;
+  --page: #eef8ff;
+  --white: #ffffff;
+  --green: #58cc02;
+  --green-dark: #46a302;
+  --blue: #1cb0f6;
+  --blue-dark: #168fc7;
+  --yellow: #ffc800;
+  --yellow-dark: #d9a900;
+  --purple: #a560e8;
+  --purple-dark: #8147bd;
+  --red: #ff4b4b;
+  --red-dark: #d93f3f;
+  --line: #d7e5ef;
+  color: var(--ink);
+  background: var(--page);
+  font-family: 'Nunito', system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 *,
@@ -26,19 +34,18 @@
 }
 
 html {
-  scroll-padding-top: 70px;
+  scroll-padding-top: 80px;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  overflow-x: hidden;
-  background: var(--black);
+  background: var(--page);
 }
 
-button,
-a {
+a,
+button {
   color: inherit;
   font: inherit;
 }
@@ -53,12 +60,12 @@ img {
 }
 
 ::selection {
-  color: var(--black);
-  background: var(--green);
+  color: var(--ink);
+  background: #dfffbf;
 }
 
 :focus-visible {
-  outline: 2px solid var(--green-bright);
+  outline: 3px solid var(--blue);
   outline-offset: 4px;
 }
 

@@ -1,19 +1,11 @@
-import { useEffect, useState, type ReactNode } from 'react'
-import {
-  AnimatePresence,
-  MotionConfig,
-  motion,
-  useReducedMotion,
-} from 'motion/react'
+import { type ReactNode } from 'react'
+import { MotionConfig, motion, useReducedMotion } from 'motion/react'
 import './App.css'
 
-const links = [
-  ['GITHUB', 'https://github.com/keegabit'],
-  ['X / TWITTER', 'https://x.com/keegabit'],
-  ['YOUTUBE', 'https://www.youtube.com/@keegabit'],
-  ['INSTAGRAM', 'https://www.instagram.com/keegabit/'],
-  ['TIKTOK', 'https://www.tiktok.com/@keegabit'],
-  ['DISCORD', 'https://discord.gg/FpP7g6D5uP'],
+const socialLinks = [
+  ['GitHub', 'https://github.com/keegabit', 'blue'],
+  ['X / Twitter', 'https://x.com/keegabit', 'purple'],
+  ['YouTube', 'https://www.youtube.com/@keegabit', 'red'],
 ]
 
 function Reveal({
@@ -26,10 +18,10 @@ function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.16 }}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ type: 'spring', stiffness: 150, damping: 18 }}
     >
       {children}
     </motion.div>
@@ -37,154 +29,86 @@ function Reveal({
 }
 
 function App() {
-  const [booting, setBooting] = useState(true)
   const reduceMotion = useReducedMotion()
-
-  useEffect(() => {
-    const timeout = window.setTimeout(() => setBooting(false), 1050)
-    return () => window.clearTimeout(timeout)
-  }, [])
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="crt">
-        <AnimatePresence>
-          {booting && !reduceMotion ? (
+      <div className="page-shell" id="top">
+        <header>
+          <a className="brand" href="#top" aria-label="Keegabit, back to top">
+            <span>K</span>
+            keegabit
+          </a>
+          <nav aria-label="Primary navigation">
+            <a href="#work">Work</a>
+            <a href="#links">Links</a>
+          </nav>
+        </header>
+
+        <main>
+          <section className="hero">
             <motion.div
-              className="boot-screen"
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
+              className="hero-copy"
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: 'spring', stiffness: 130, damping: 16 }}
             >
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.1 }}
+              <div className="hero-badges">
+                <span>Developer</span>
+                <span>Game maker</span>
+              </div>
+              <h1>I make playful software.</h1>
+              <p>Code, games, and fun ideas.</p>
+              <motion.a
+                className="chunky-button green-button"
+                href="#work"
+                whileHover={reduceMotion ? undefined : { y: -2 }}
+                whileTap={{ y: 4 }}
               >
-                KEEGABIT BIOS v2.0
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.35 }}
-              >
-                CHECKING MEMORY ........ OK
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.62 }}
-              >
-                LOADING PORTFOLIO ....... OK
-              </motion.p>
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.78 }}
-              >
-                _
-              </motion.span>
+                See my work
+              </motion.a>
             </motion.div>
-          ) : null}
-        </AnimatePresence>
 
-        <div className="terminal-shell" id="top">
-          <header className="terminal-header">
-            <a href="#top" className="terminal-brand">
-              [ KEEGABIT_OS ]
-            </a>
-            <nav aria-label="Primary navigation">
-              <a href="#work">WORK</a>
-              <a href="#profile">INFO</a>
-              <a href="#links">LINKS</a>
-            </nav>
-          </header>
+            <motion.div
+              className="hero-avatar-card"
+              initial={{ opacity: 0, scale: 0.8, rotate: 4 }}
+              animate={{ opacity: 1, scale: 1, rotate: -2 }}
+              transition={{
+                delay: reduceMotion ? 0 : 0.12,
+                type: 'spring',
+                stiffness: 160,
+                damping: 14,
+              }}
+            >
+              <img
+                src="/keegabit-avatar.png"
+                alt="Keegan smiling over a pool table"
+                width="500"
+                height="500"
+              />
+              <span className="online-dot" aria-label="Online" />
+              <strong>Hi, I’m Keegan.</strong>
+            </motion.div>
+          </section>
 
-          <main>
-            <section className="hero terminal-section">
-              <motion.div
-                className="hero-copy"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: reduceMotion ? 0 : 1, duration: 0.4 }}
-              >
-                <p className="status-line">
-                  <span />
-                  USER ONLINE // PHX_AZ
-                </p>
-                <p className="prompt">&gt; IDENTIFY USER</p>
-                <h1>
-                  SOFTWARE DEV
-                  <br />
-                  GAME MAKER
-                </h1>
-                <p className="short-copy">&gt; CODE. GAMES. MUSIC.</p>
-                <div className="terminal-actions">
-                  <motion.a
-                    href="#work"
-                    className="terminal-button"
-                    whileHover={{ x: 4 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    [ VIEW WORK ]
-                  </motion.a>
-                  <motion.a
-                    href="https://github.com/keegabit"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="plain-link"
-                    whileHover={{ x: 4 }}
-                  >
-                    GITHUB ↗
-                  </motion.a>
-                </div>
-              </motion.div>
+          <section className="work-section" id="work">
+            <Reveal className="section-heading">
+              <span className="section-badge">Portfolio</span>
+              <h2>Things I’ve made</h2>
+            </Reveal>
 
-              <motion.div
-                className="system-panel"
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: reduceMotion ? 0 : 1.12, duration: 0.4 }}
-              >
-                <div className="panel-title">
-                  <span>SYS.MONITOR</span>
-                  <span>ONLINE</span>
-                </div>
-                <div className="radar" aria-hidden="true">
-                  <span className="radar-sweep" />
-                  <i className="radar-point point-one" />
-                  <i className="radar-point point-two" />
-                  <b>+</b>
-                </div>
-                <dl className="system-list">
-                  <div>
-                    <dt>STATUS</dt>
-                    <dd>BUILDING</dd>
-                  </div>
-                  <div>
-                    <dt>PROJECT</dt>
-                    <dd>PING PAN</dd>
-                  </div>
-                  <div>
-                    <dt>UPTIME</dt>
-                    <dd>ALWAYS</dd>
-                  </div>
-                </dl>
-              </motion.div>
-            </section>
-
-            <section className="terminal-section" id="work">
-              <Reveal className="section-title">
-                <p>[ 01 ]</p>
-                <h2>SELECTED_WORK</h2>
-              </Reveal>
-
+            <div className="project-grid">
               <Reveal>
-                <article className="project-terminal">
+                <motion.article
+                  className="project-card ping-pan-card"
+                  whileHover={reduceMotion ? undefined : { y: -5 }}
+                  whileTap={{ scale: 0.99 }}
+                >
                   <a
+                    className="project-art ping-pan-art"
                     href="https://store.steampowered.com/app/3973980/Ping_Pan/"
                     target="_blank"
                     rel="noreferrer"
-                    className="project-screen"
                     aria-label="View Ping Pan on Steam"
                   >
                     <img
@@ -193,103 +117,100 @@ function App() {
                       width="1920"
                       height="620"
                     />
-                    <span>APP_ID: 3973980</span>
+                    <span>Released</span>
                   </a>
-                  <div className="project-data">
+                  <div className="project-copy">
                     <div>
-                      <p className="prompt">&gt; EXECUTE PROJECT</p>
-                      <h3>PING PAN</h3>
+                      <span className="tiny-label green-label">Game</span>
+                      <h3>Ping Pan</h3>
+                      <p>A playful physics puzzle game.</p>
                     </div>
-                    <div>
-                      <p>PHYSICS PUZZLE // RELEASED 2025</p>
-                      <a
-                        href="https://store.steampowered.com/app/3973980/Ping_Pan/"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="terminal-button"
-                      >
-                        [ OPEN IN STEAM ↗ ]
-                      </a>
-                    </div>
+                    <a
+                      className="chunky-button yellow-button"
+                      href="https://store.steampowered.com/app/3973980/Ping_Pan/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Play on Steam ↗
+                    </a>
                   </div>
-                </article>
-              </Reveal>
-            </section>
-
-            <section className="terminal-section profile-section" id="profile">
-              <Reveal className="section-title">
-                <p>[ 02 ]</p>
-                <h2>USER_PROFILE</h2>
+                </motion.article>
               </Reveal>
 
-              <div className="profile-grid">
-                <Reveal>
-                  <div className="profile-image">
-                    <img
-                      src="/keegabit-avatar.png"
-                      alt="Keegan smiling over a pool table"
-                      width="500"
-                      height="500"
-                    />
-                    <span>KEEGAN.PNG</span>
-                  </div>
-                </Reveal>
-                <Reveal className="profile-data">
-                  <p className="prompt">&gt; DISPLAY BIO</p>
-                  <h3>KEEGAN</h3>
-                  <p>DEVELOPER. GAME MAKER. ALWAYS LEARNING.</p>
-                  <dl>
-                    <div>
-                      <dt>WEB</dt>
-                      <dd>REACT / TYPESCRIPT</dd>
-                    </div>
-                    <div>
-                      <dt>GAMES</dt>
-                      <dd>C++ / UNREAL / GODOT</dd>
-                    </div>
-                    <div>
-                      <dt>OTHER</dt>
-                      <dd>MUSIC / ART</dd>
-                    </div>
-                  </dl>
-                </Reveal>
-              </div>
-            </section>
-
-            <section className="terminal-section" id="links">
-              <Reveal className="section-title">
-                <p>[ 03 ]</p>
-                <h2>COMMS_LINKS</h2>
-              </Reveal>
-
-              <div className="link-list">
-                {links.map(([label, href], index) => (
-                  <motion.a
-                    key={label}
-                    href={href}
+              <Reveal>
+                <motion.article
+                  className="project-card tp-card"
+                  whileHover={reduceMotion ? undefined : { y: -5 }}
+                  whileTap={{ scale: 0.99 }}
+                >
+                  <a
+                    className="project-art tp-art"
+                    href="https://tp.games/"
                     target="_blank"
                     rel="noreferrer"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.04 }}
-                    whileHover={{ x: 6 }}
-                    whileTap={{ scale: 0.99 }}
+                    aria-label="Visit tp.games"
                   >
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    <strong>{label}</strong>
-                    <i>↗</i>
-                  </motion.a>
-                ))}
-              </div>
-            </section>
-          </main>
+                    <div className="tp-logo">TP</div>
+                    <div className="tp-steps" aria-hidden="true">
+                      <span>HOST</span>
+                      <i>→</i>
+                      <span>JOIN</span>
+                      <i>→</i>
+                      <span>PLAY</span>
+                    </div>
+                  </a>
+                  <div className="project-copy">
+                    <div>
+                      <span className="tiny-label blue-label">Platform</span>
+                      <h3>tp.games</h3>
+                      <p>Instant multiplayer games for any screen.</p>
+                    </div>
+                    <a
+                      className="chunky-button blue-button"
+                      href="https://tp.games/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Visit tp.games ↗
+                    </a>
+                  </div>
+                </motion.article>
+              </Reveal>
+            </div>
+          </section>
 
-          <footer>
-            <span>KEEGABIT_OS // {new Date().getFullYear()}</span>
-            <span className="cursor">█</span>
-          </footer>
-        </div>
+          <section className="links-section" id="links">
+            <Reveal>
+              <span className="section-badge">Say hello</span>
+              <h2>Find me online</h2>
+            </Reveal>
+            <div className="social-links">
+              {socialLinks.map(([label, href, color], index) => (
+                <motion.a
+                  key={label}
+                  className={`social-button ${color}-social`}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.06 }}
+                  whileHover={reduceMotion ? undefined : { y: -2 }}
+                  whileTap={{ y: 3 }}
+                >
+                  {label}
+                  <span>↗</span>
+                </motion.a>
+              ))}
+            </div>
+          </section>
+        </main>
+
+        <footer>
+          <span className="footer-mark">K</span>
+          <p>© {new Date().getFullYear()} Keegan</p>
+        </footer>
       </div>
     </MotionConfig>
   )
