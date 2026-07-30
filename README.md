@@ -3,8 +3,8 @@
 The personal portfolio of Keegan: software developer, indie game maker, and
 creative technologist.
 
-The site is designed mobile-first as a monochrome CRT terminal with a short boot
-sequence, scanline effects, responsive layouts, and accessible reduced-motion
+The site is designed mobile-first with playful rounded controls, bright
+game-inspired colors, responsive project cards, and accessible reduced-motion
 behavior.
 
 ## Stack
