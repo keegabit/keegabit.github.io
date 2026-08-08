@@ -1,6 +1,8 @@
-import { type ReactNode } from 'react'
+import { type ReactNode, useEffect, useState } from 'react'
 import { MotionConfig, motion, useReducedMotion } from 'motion/react'
 import './App.css'
+import ProjectPage from './ProjectPage'
+import { projectsBySlug } from './projects'
 
 const socialLinks = [
   ['GitHub', 'https://github.com/keegabit', 'blue'],
@@ -30,6 +32,35 @@ function Reveal({
 
 function App() {
   const reduceMotion = useReducedMotion()
+  const [hash, setHash] = useState(() => window.location.hash)
+  const projectSlug = hash.match(/^#\/projects\/([^/]+)/)?.[1]
+  const activeProject = projectSlug ? projectsBySlug[projectSlug] : undefined
+
+  useEffect(() => {
+    const handleHashChange = () => setHash(window.location.hash)
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
+  useEffect(() => {
+    document.title = activeProject
+      ? `${activeProject.title} — keegabit`
+      : 'keegabit — playful software'
+  }, [activeProject])
+
+  useEffect(() => {
+    if (!activeProject) return
+
+    const sectionId = hash.match(/^#\/projects\/[^/]+\/([^/]+)/)?.[1]
+    if (sectionId) {
+      requestAnimationFrame(() => {
+        document.getElementById(sectionId)?.scrollIntoView()
+      })
+      return
+    }
+
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [activeProject, hash])
 
   return (
     <MotionConfig reducedMotion="user">
@@ -45,6 +76,9 @@ function App() {
           </nav>
         </header>
 
+        {activeProject ? (
+          <ProjectPage project={activeProject} />
+        ) : (
         <main>
           <section className="hero">
             <motion.div
@@ -102,10 +136,8 @@ function App() {
                 >
                   <a
                     className="project-art ping-pan-art"
-                    href="https://store.steampowered.com/app/3973980/Ping_Pan/"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="View Ping Pan on Steam"
+                    href="#/projects/ping-pan"
+                    aria-label="Read the Ping Pan project story"
                   >
                     <img
                       src="/ping-pan-hero.jpg"
@@ -123,11 +155,9 @@ function App() {
                     </div>
                     <a
                       className="chunky-button yellow-button"
-                      href="https://store.steampowered.com/app/3973980/Ping_Pan/"
-                      target="_blank"
-                      rel="noreferrer"
+                      href="#/projects/ping-pan"
                     >
-                      Play on Steam ↗
+                      Read the story →
                     </a>
                   </div>
                 </motion.article>
@@ -141,10 +171,8 @@ function App() {
                 >
                   <a
                     className="project-art tp-art"
-                    href="https://tp.games/"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Visit tp.games"
+                    href="#/projects/tp-games"
+                    aria-label="Read the tp.games project story"
                   >
                     <div className="tp-logo">TP</div>
                     <div className="tp-steps" aria-hidden="true">
@@ -163,29 +191,32 @@ function App() {
                     </div>
                     <a
                       className="chunky-button blue-button"
-                      href="https://tp.games/"
-                      target="_blank"
-                      rel="noreferrer"
+                      href="#/projects/tp-games"
                     >
-                      Visit tp.games ↗
+                      Read the story →
                     </a>
                   </div>
                 </motion.article>
               </Reveal>
 
-              <Reveal className="tape-project">
+              <Reveal>
                 <motion.article
                   className="project-card tape-card"
                   whileHover={reduceMotion ? undefined : { y: -5 }}
+                  whileTap={{ scale: 0.99 }}
                 >
-                  <div className="project-art tape-art">
+                  <a
+                    className="project-art tape-art"
+                    href="#/projects/tape-machine"
+                    aria-label="Read the Tape Machine project story"
+                  >
                     <img
                       src="/tape-machine-vst.png"
                       alt="Tape Machine VST interface with tape reels, VU meters, and analog controls"
                       width="1383"
                       height="1062"
                     />
-                  </div>
+                  </a>
                   <div className="project-copy">
                     <div>
                       <span className="tiny-label purple-label">
@@ -194,6 +225,12 @@ function App() {
                       <h3>Tape Machine</h3>
                       <p>A tape-inspired VST for warm, characterful sound.</p>
                     </div>
+                    <a
+                      className="chunky-button purple-button"
+                      href="#/projects/tape-machine"
+                    >
+                      Read the story →
+                    </a>
                   </div>
                 </motion.article>
               </Reveal>
@@ -227,6 +264,7 @@ function App() {
             </div>
           </section>
         </main>
+        )}
 
         <footer>
           <span className="footer-mark">K</span>
