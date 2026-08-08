@@ -72,9 +72,9 @@ export default function ProjectPage({ project }: { project: Project }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.16, type: 'spring', stiffness: 130, damping: 18 }}
           >
-          <span className="section-badge">{project.label}</span>
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
+          <span className="section-badge">{project.label}</span>
           {project.externalLink && (
             <a
               className="chunky-button blue-button"

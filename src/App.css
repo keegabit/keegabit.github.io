@@ -619,6 +619,9 @@ nav a:hover {
 }
 
 .story-hero-copy .section-badge {
+  display: flex;
+  width: fit-content;
+  margin-top: 18px;
   border-color: rgba(255, 255, 255, 0.54);
   color: var(--white);
   background: rgba(255, 255, 255, 0.15);
