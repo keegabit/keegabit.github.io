@@ -35,10 +35,10 @@ export default function ProjectVisual({
 
         {project.visual === 'handwritten-outreach' && (
           <img
-            src="/handwritten-outreach.jpg"
-            alt="Personalized letter written by the AI-powered robot"
-            width="1179"
-            height="1792"
+            src="/handwritten-outreach-robot.jpg"
+            alt="Letter-writing robot putting a personalized message onto paper"
+            width="1368"
+            height="2048"
           />
         )}
 
