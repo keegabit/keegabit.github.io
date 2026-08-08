@@ -60,6 +60,38 @@ function ContentBlock({ block }: { block: ProjectBlock }) {
     )
   }
 
+  if (block.type === 'architecture') {
+    return (
+      <figure className="story-architecture" aria-label={block.ariaLabel}>
+        <figcaption>{block.title}</figcaption>
+        <div className="architecture-lanes">
+          {block.lanes.map((lane) => (
+            <section className="architecture-lane" key={lane.label}>
+              <h3>{lane.label}</h3>
+              <div className="architecture-flow">
+                {lane.steps.map((step, index) => (
+                  <div className="architecture-flow-item" key={step.title}>
+                    <div
+                      className={`architecture-step${step.tone ? ` ${step.tone}-step` : ''}`}
+                    >
+                      <strong>{step.title}</strong>
+                      <span>{step.text}</span>
+                    </div>
+                    {index < lane.steps.length - 1 && (
+                      <span className="architecture-arrow" aria-hidden="true">
+                        →
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </figure>
+    )
+  }
+
   return (
     <aside className="story-callout">
       <strong>{block.title}</strong>
