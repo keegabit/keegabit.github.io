@@ -541,7 +541,17 @@ nav a:hover {
 
 /* Project stories use the card art as a shared, immersive page header. */
 .project-story {
-  padding: 0;
+  padding: 14px 12px 76px;
+}
+
+.project-story-card {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 2px solid #cdddea;
+  border-radius: 26px;
+  background: var(--white);
+  box-shadow: 0 8px 0 #bdd0dd;
 }
 
 .story-hero {
@@ -591,8 +601,17 @@ nav a:hover {
 }
 
 .story-back {
+  display: inline-flex;
+  min-height: 44px;
   margin-bottom: 34px;
-  color: rgba(255, 255, 255, 0.82);
+  padding: 0 14px;
+  align-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 13px;
+  color: var(--ink);
+  background: var(--white);
+  box-shadow: 0 4px 0 rgba(8, 16, 28, 0.28);
+  text-shadow: none;
 }
 
 .story-hero-copy .section-badge {
@@ -777,6 +796,14 @@ footer p {
     width: min(100%, 300px);
   }
 
+  .project-story {
+    padding: 24px 30px 94px;
+  }
+
+  .project-story-card {
+    border-radius: 30px;
+  }
+
   .story-hero {
     min-height: 600px;
     padding: 54px 30px;
@@ -816,6 +843,10 @@ footer p {
 
   .work-section {
     padding: 110px 46px;
+  }
+
+  .project-story {
+    padding: 38px 46px 110px;
   }
 
   .story-hero {

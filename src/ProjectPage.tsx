@@ -56,7 +56,12 @@ function ContentBlock({ block }: { block: ProjectBlock }) {
 export default function ProjectPage({ project }: { project: Project }) {
   return (
     <main className={`project-story ${project.visual}-story`}>
-      <section className="story-hero">
+      <motion.article
+        className="project-story-card"
+        layoutId={`project-card-${project.slug}`}
+        transition={{ type: 'spring', stiffness: 130, damping: 24 }}
+      >
+        <section className="story-hero">
         <ProjectVisual project={project} shared />
         <motion.div
           className="story-hero-copy"
@@ -65,7 +70,7 @@ export default function ProjectPage({ project }: { project: Project }) {
           transition={{ delay: 0.16, type: 'spring', stiffness: 130, damping: 18 }}
         >
           <a className="story-back" href="#work">
-            ← All projects
+            ← Back
           </a>
           <span className="section-badge">{project.label}</span>
           <h1>{project.title}</h1>
@@ -81,36 +86,37 @@ export default function ProjectPage({ project }: { project: Project }) {
             </a>
           )}
         </motion.div>
-      </section>
+        </section>
 
-      <div className="story-content">
-        <nav className="story-nav" aria-label="Explore this project">
-          <strong>Explore</strong>
-          {project.sections.map((section) => (
-            <a
-              key={section.id}
-              href={`#/projects/${project.slug}/${section.id}`}
-            >
-              {section.title}
+        <div className="story-content">
+          <nav className="story-nav" aria-label="Explore this project">
+            <strong>Explore</strong>
+            {project.sections.map((section) => (
+              <a
+                key={section.id}
+                href={`#/projects/${project.slug}/${section.id}`}
+              >
+                {section.title}
+              </a>
+            ))}
+          </nav>
+
+          <div className="story-article">
+            {project.sections.map((section) => (
+              <section key={section.id} id={section.id}>
+                <h2>{section.title}</h2>
+                {section.blocks.map((block, index) => (
+                  <ContentBlock key={`${section.id}-${block.type}-${index}`} block={block} />
+                ))}
+              </section>
+            ))}
+
+            <a className="story-end-link" href="#work">
+              ← Back to all projects
             </a>
-          ))}
-        </nav>
-
-        <article className="story-article">
-          {project.sections.map((section) => (
-            <section key={section.id} id={section.id}>
-              <h2>{section.title}</h2>
-              {section.blocks.map((block, index) => (
-                <ContentBlock key={`${section.id}-${block.type}-${index}`} block={block} />
-              ))}
-            </section>
-          ))}
-
-          <a className="story-end-link" href="#work">
-            ← Back to all projects
-          </a>
-        </article>
-      </div>
+          </div>
+        </div>
+      </motion.article>
     </main>
   )
 }

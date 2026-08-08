@@ -8,6 +8,8 @@ export default function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.article
       className="project-card"
+      layoutId={`project-card-${project.slug}`}
+      transition={{ type: 'spring', stiffness: 130, damping: 24 }}
       whileHover={reduceMotion ? undefined : { y: -5 }}
       whileTap={{ scale: 0.99 }}
     >
