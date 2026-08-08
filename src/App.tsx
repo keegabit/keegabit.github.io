@@ -187,8 +187,8 @@ function App() {
               <img
                 src="/keegabit-avatar.png"
                 alt="Keegan smiling over a pool table"
-                width="500"
-                height="500"
+                width="1254"
+                height="1254"
               />
               <span className="online-dot" aria-label="Online" />
               <strong>Hi, I’m Keegan.</strong>
