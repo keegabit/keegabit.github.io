@@ -617,10 +617,6 @@ nav a:hover {
   box-shadow: 0 8px 0 #bdd0dd;
 }
 
-.story-project-panel {
-  width: 100%;
-}
-
 .story-hero {
   position: relative;
   display: flex;

@@ -86,33 +86,33 @@ export default function ProjectPage({
 
   return (
     <main className={`project-story ${project.visual}-story`}>
-      <motion.article
-        className="project-story-card"
-        layoutId={
-          isDetailNavigation ? undefined : `project-card-${project.slug}`
-        }
-        transition={{ type: 'spring', stiffness: 130, damping: 24 }}
+      <AnimatePresence
+        initial={false}
+        mode="wait"
+        custom={navigationDirection}
       >
-        <AnimatePresence
-          initial={false}
-          mode="wait"
+        <motion.article
+          key={project.slug}
+          className="project-story-card"
+          layoutId={
+            isDetailNavigation ? undefined : `project-card-${project.slug}`
+          }
           custom={navigationDirection}
+          variants={projectPanelVariants}
+          initial={isDetailNavigation ? 'enter' : false}
+          animate="center"
+          exit="exit"
+          transition={
+            isDetailNavigation
+              ? { duration: 0.24, ease: 'easeOut' }
+              : { type: 'spring', stiffness: 130, damping: 24 }
+          }
+          onAnimationComplete={(definition) => {
+            if (isDetailNavigation && definition === 'center') {
+              onNavigationComplete()
+            }
+          }}
         >
-          <motion.div
-            key={project.slug}
-            className="story-project-panel"
-            custom={navigationDirection}
-            variants={projectPanelVariants}
-            initial={isDetailNavigation ? 'enter' : false}
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.24, ease: 'easeOut' }}
-            onAnimationComplete={(definition) => {
-              if (isDetailNavigation && definition === 'center') {
-                onNavigationComplete()
-              }
-            }}
-          >
         <section className="story-hero">
           <ProjectVisual project={project} shared={!isDetailNavigation} />
           <a className="story-back" href="#work">
@@ -169,9 +169,8 @@ export default function ProjectPage({
           </div>
 
         </div>
-          </motion.div>
-        </AnimatePresence>
-      </motion.article>
+        </motion.article>
+      </AnimatePresence>
 
       <nav className="story-project-pagination" aria-label="More projects">
         <a
