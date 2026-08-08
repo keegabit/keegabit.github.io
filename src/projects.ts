@@ -481,11 +481,11 @@ export const projects: Project[] = [
   },
   {
     slug: 'dum-daw',
-    title: 'DumDAW - Digital Audio Workstation for the web',
+    title: 'DAW FTW',
     label: 'Web DAW',
-    summary: 'A browser-based digital audio workstation for arranging patterns, instruments, samples, and mixes in one workspace.',
+    summary: 'A digital audio workstation for the web.',
     card: {
-      summary: 'A digital audio workstation that runs in the browser.',
+      summary: 'A digital audio workstation for the web.',
       labelColor: 'purple',
       buttonColor: 'purple',
       badge: 'Prototype',
@@ -498,12 +498,12 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'DumDAW is a digital audio workstation for the web. It brings the core surfaces of a music production setup into one browser workspace: a sound library, channel rack, piano roll, playlist, instruments, and mixer.',
+            text: 'DAW FTW is a digital audio workstation for the web. It brings the core surfaces of a music production setup into one browser workspace: a sound library, channel rack, piano roll, playlist, instruments, and mixer.',
           },
           {
             type: 'image',
             src: '/dum-daw.png',
-            alt: 'DumDAW browser-based digital audio workstation interface',
+            alt: 'DAW FTW browser-based digital audio workstation interface',
             caption: 'A web DAW workspace for arranging patterns, shaping instruments, and mixing tracks.',
           },
         ],
@@ -514,7 +514,7 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'I wanted to explore what a music-making tool feels like when it opens directly in a browser. DumDAW is designed around a familiar production flow, while keeping the whole workspace available without a traditional desktop installation.',
+            text: 'I wanted to explore what a music-making tool feels like when it opens directly in a browser. DAW FTW is designed around a familiar production flow, while keeping the whole workspace available without a traditional desktop installation.',
           },
         ],
       },
