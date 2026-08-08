@@ -1,4 +1,10 @@
-import { type ReactNode, useEffect, useRef, useState } from 'react'
+import {
+  type ReactNode,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
 import { LayoutGroup, MotionConfig, motion, useReducedMotion } from 'motion/react'
 import './App.css'
 import ProjectCard from './ProjectCard'
@@ -52,6 +58,8 @@ function Reveal({
 
 function App() {
   const reduceMotion = useReducedMotion()
+  const heroTitleRef = useRef<HTMLHeadingElement>(null)
+  const [heroTitleHeight, setHeroTitleHeight] = useState<number>()
   const [hash, setHash] = useState(() => window.location.hash)
   const hashRef = useRef(hash)
   const [seenProjectSlugs, setSeenProjectSlugs] = useState(getSeenProjects)
@@ -61,6 +69,20 @@ function App() {
   })
   const projectSlug = getProjectSlug(hash)
   const activeProject = projectSlug ? projectsBySlug[projectSlug] : undefined
+
+  useLayoutEffect(() => {
+    if (activeProject || !heroTitleRef.current) return
+
+    const title = heroTitleRef.current
+    const matchCardToTitle = () => {
+      setHeroTitleHeight(Math.round(title.getBoundingClientRect().height))
+    }
+
+    matchCardToTitle()
+    const observer = new ResizeObserver(matchCardToTitle)
+    observer.observe(title)
+    return () => observer.disconnect()
+  }, [activeProject])
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -161,7 +183,7 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 130, damping: 16 }}
             >
-              <h1>I make software with personality.</h1>
+              <h1 ref={heroTitleRef}>I make software with personality.</h1>
               <p>Code, games, and fun ideas.</p>
               <motion.a
                 className="chunky-button green-button"
@@ -175,6 +197,7 @@ function App() {
 
             <motion.div
               className="hero-avatar-card"
+              style={heroTitleHeight ? { height: heroTitleHeight } : undefined}
               initial={{ opacity: 0, scale: 0.8, rotate: 4 }}
               animate={{ opacity: 1, scale: 1, rotate: -2 }}
               transition={{

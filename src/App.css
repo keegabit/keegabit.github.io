@@ -140,9 +140,11 @@ nav a:hover {
 
 .hero-avatar-card {
   position: relative;
+  display: flex;
   width: min(74vw, 280px);
   margin: 0 auto;
   padding: 10px 10px 17px;
+  flex-direction: column;
   border: 2px solid #cdddea;
   border-radius: 28px;
   background: var(--white);
@@ -151,7 +153,8 @@ nav a:hover {
 
 .hero-avatar-card img {
   width: 100%;
-  aspect-ratio: 1;
+  min-height: 0;
+  flex: 1;
   border-radius: 20px;
   object-fit: cover;
 }
