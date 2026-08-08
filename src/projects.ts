@@ -23,7 +23,7 @@ export type Project = {
     buttonColor: 'yellow' | 'blue' | 'purple'
     badge?: string
   }
-  visual: 'ping-pan' | 'tp-games' | 'tape-machine'
+  visual: 'ping-pan' | 'tp-games' | 'tape-machine' | 'handwritten-outreach'
   externalLink?: {
     label: string
     href: string
@@ -336,6 +336,79 @@ export const projects: Project[] = [
             type: 'callout',
             title: 'Technical definition',
             text: 'Tape Machine is a musical tape-saturation, transport-modulation, and digital-degradation VST3—not a fully physical magnetic hysteresis simulation.',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'handwritten-outreach',
+    title: 'Handwritten Outreach',
+    label: 'Sales automation',
+    summary: 'An AI-powered letter-writing robot that turns CRM moments into timely, personal client outreach.',
+    card: {
+      summary: 'Personal handwritten outreach, automated from CRM data.',
+      labelColor: 'blue',
+      buttonColor: 'blue',
+      badge: 'Built for sales',
+    },
+    visual: 'handwritten-outreach',
+    sections: [
+      {
+        id: 'what-it-is',
+        title: 'What it is',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Handwritten Outreach is a sales automation system that creates and physically writes personalized letters for clients. It uses meaningful details already stored in a CRM—such as a birthday, a home purchase date, or another relationship milestone—to make each note relevant to the person receiving it.',
+          },
+          {
+            type: 'image',
+            src: '/handwritten-outreach.jpg',
+            alt: 'A personalized handwritten letter produced by the letter-writing robot',
+            caption: 'The finished output is a real ink-on-paper letter, created from CRM context and written by the machine.',
+          },
+          {
+            type: 'paragraph',
+            text: 'A custom AI model creates the handwriting, and the robot turns that output into a physical note. The result combines software-driven scale with a medium that still feels personal, intentional, and memorable.',
+          },
+        ],
+      },
+      {
+        id: 'why-it-exists',
+        title: 'Why I made it',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Relationship-based sales depends on thoughtful follow-up, but the moments that make outreach meaningful are easy to miss. Writing every note by hand also creates a choice between maintaining relationships and spending time on the next sale. I built this system to remove that tradeoff.',
+          },
+          {
+            type: 'callout',
+            title: 'The business value',
+            text: 'It turns passive CRM data into a repeatable client-retention and referral touchpoint. Salespeople can stay present for birthdays, home anniversaries, and other important moments without adding hours of repetitive administrative work.',
+          },
+          {
+            type: 'paragraph',
+            text: 'A physical letter can stand out where another automated email disappears. The system was designed to help sales teams remain memorable, strengthen long-term client relationships, and create natural reasons to reconnect after a transaction is complete.',
+          },
+        ],
+      },
+      {
+        id: 'how-it-was-made',
+        title: 'How it was made',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'The project connects three distinct parts: CRM context, a custom handwriting model, and a physical writing robot. Client and milestone data determine when a letter is useful and what it should acknowledge; the model turns the message into handwriting; and the machine reproduces it with real ink on paper.',
+          },
+          {
+            type: 'list',
+            items: [
+              'CRM-driven triggers for relevant client milestones',
+              'A custom AI model trained to generate handwriting',
+              'Machine-ready output for a physical letter-writing robot',
+              'A repeatable workflow designed for sales teams',
+            ],
           },
         ],
       },

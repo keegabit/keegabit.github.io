@@ -329,6 +329,14 @@ nav a:hover {
   object-position: top;
 }
 
+.project-visual-handwritten-outreach {
+  background: #2b241f;
+}
+
+.project-visual-handwritten-outreach img {
+  object-position: center 52%;
+}
+
 .project-copy {
   display: flex;
   flex: 1;

@@ -33,6 +33,15 @@ export default function ProjectVisual({
           />
         )}
 
+        {project.visual === 'handwritten-outreach' && (
+          <img
+            src="/handwritten-outreach.jpg"
+            alt="Personalized letter written by the AI-powered robot"
+            width="1179"
+            height="1792"
+          />
+        )}
+
         {project.visual === 'tp-games' && (
           <div className="tp-visual-content" aria-label="tp.games host, join, play flow">
             <div className="tp-logo">TP</div>
