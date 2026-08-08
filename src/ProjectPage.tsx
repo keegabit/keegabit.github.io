@@ -44,6 +44,7 @@ function MermaidDiagram({
           startOnLoad: false,
           securityLevel: 'strict',
           theme: 'base',
+          htmlLabels: false,
           fontFamily: 'Nunito, system-ui, sans-serif',
           themeVariables: {
             primaryColor: '#e7f7ff',
@@ -56,7 +57,6 @@ function MermaidDiagram({
           },
           flowchart: {
             curve: 'basis',
-            htmlLabels: true,
           },
         })
 
