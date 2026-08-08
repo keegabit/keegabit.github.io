@@ -53,7 +53,7 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 130, damping: 16 }}
             >
-              <h1>I make software feel fun.</h1>
+              <h1>I make software with personality.</h1>
               <p>Code, games, and fun ideas.</p>
               <motion.a
                 className="chunky-button green-button"
