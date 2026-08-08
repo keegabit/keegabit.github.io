@@ -122,13 +122,23 @@ export default function ProjectPage({ project }: { project: Project }) {
           </div>
 
           <nav className="story-project-pagination" aria-label="More projects">
-            <a href={`#/projects/${previousProject.slug}`}>
-              <span>Previous project</span>
-              <strong>← {previousProject.title}</strong>
+            <a
+              className="previous-project"
+              href={`#/projects/${previousProject.slug}`}
+              aria-label={`Previous project: ${previousProject.title}`}
+              title={`Previous: ${previousProject.title}`}
+            >
+              <span className="pagination-arrow" aria-hidden="true">←</span>
+              <span className="pagination-name">{previousProject.title}</span>
             </a>
-            <a href={`#/projects/${nextProject.slug}`}>
-              <span>Next project</span>
-              <strong>{nextProject.title} →</strong>
+            <a
+              className="next-project"
+              href={`#/projects/${nextProject.slug}`}
+              aria-label={`Next project: ${nextProject.title}`}
+              title={`Next: ${nextProject.title}`}
+            >
+              <span className="pagination-name">{nextProject.title}</span>
+              <span className="pagination-arrow" aria-hidden="true">→</span>
             </a>
           </nav>
         </div>

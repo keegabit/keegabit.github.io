@@ -540,43 +540,57 @@ nav a:hover {
 }
 
 .story-project-pagination {
-  display: grid;
-  width: min(100%, 760px);
-  margin: 56px auto 0;
-  padding-top: 28px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  border-top: 2px solid var(--line);
+  position: fixed;
+  z-index: 40;
+  right: 0;
+  bottom: 14px;
+  left: 0;
+  display: flex;
+  height: 48px;
+  padding: 0 16px;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
 }
 
 .story-project-pagination a {
   display: flex;
-  min-height: 86px;
-  padding: 14px;
-  flex-direction: column;
+  width: 48px;
+  height: 48px;
+  align-items: center;
   justify-content: center;
   border: 2px solid #cdddea;
-  border-radius: 15px;
+  border-radius: 14px;
   background: var(--white);
   box-shadow: 0 5px 0 #bdd0dd;
+  pointer-events: auto;
 }
 
-.story-project-pagination a:last-child {
-  text-align: right;
-}
-
-.story-project-pagination span {
-  color: var(--muted);
-  font-size: 0.68rem;
+.pagination-arrow {
+  color: var(--ink);
+  font-size: 1.35rem;
   font-weight: 900;
-  text-transform: uppercase;
+  line-height: 1;
 }
 
-.story-project-pagination strong {
-  margin-top: 5px;
-  font-size: 0.9rem;
+.pagination-name {
+  position: absolute;
+  display: none;
+  width: max-content;
+  max-width: 180px;
+  padding: 8px 10px;
+  overflow: hidden;
+  border: 2px solid #cdddea;
+  border-radius: 10px;
+  opacity: 0;
+  color: var(--ink);
+  background: var(--white);
+  box-shadow: 0 3px 0 #bdd0dd;
+  font-size: 0.75rem;
   font-weight: 900;
-  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 /* Project stories use the card art as a shared, immersive page header. */
@@ -914,6 +928,50 @@ footer p {
   .story-content {
     padding-top: 56px;
     padding-bottom: 130px;
+  }
+
+  .story-project-pagination {
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 0;
+    padding: 0;
+    transform: translateY(-50%);
+  }
+
+  .story-project-pagination a {
+    position: absolute;
+    top: -26px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .story-project-pagination .previous-project {
+    left: max(8px, calc((100vw - min(100vw, 1160px)) / 2 - 18px));
+  }
+
+  .story-project-pagination .next-project {
+    right: max(8px, calc((100vw - min(100vw, 1160px)) / 2 - 18px));
+  }
+
+  .pagination-name {
+    display: block;
+  }
+
+  .previous-project .pagination-name {
+    left: 62px;
+  }
+
+  .next-project .pagination-name {
+    right: 62px;
+  }
+
+  .story-project-pagination a:hover .pagination-name,
+  .story-project-pagination a:focus-visible .pagination-name {
+    opacity: 1;
   }
 
   .project-grid {
