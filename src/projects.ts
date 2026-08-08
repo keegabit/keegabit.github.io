@@ -17,6 +17,12 @@ export type Project = {
   title: string
   label: string
   summary: string
+  card: {
+    summary: string
+    labelColor: 'green' | 'blue' | 'purple'
+    buttonColor: 'yellow' | 'blue' | 'purple'
+    badge?: string
+  }
   visual: 'ping-pan' | 'tp-games' | 'tape-machine'
   externalLink?: {
     label: string
@@ -31,6 +37,12 @@ export const projects: Project[] = [
     title: 'Ping Pan',
     label: 'Game',
     summary: 'A playful physics puzzle game built around timing, motion, and satisfying chain reactions.',
+    card: {
+      summary: 'A playful physics puzzle game.',
+      labelColor: 'green',
+      buttonColor: 'yellow',
+      badge: 'Released',
+    },
     visual: 'ping-pan',
     externalLink: {
       label: 'Play on Steam',
@@ -88,6 +100,11 @@ export const projects: Project[] = [
     title: 'tp.games',
     label: 'Platform',
     summary: 'Instant multiplayer games that turn any shared screen and a few phones into game night.',
+    card: {
+      summary: 'Instant multiplayer games for any screen.',
+      labelColor: 'blue',
+      buttonColor: 'blue',
+    },
     visual: 'tp-games',
     externalLink: {
       label: 'Visit tp.games',
@@ -144,6 +161,11 @@ export const projects: Project[] = [
     title: 'Tape Machine',
     label: 'Audio plugin',
     summary: 'A Windows VST3 that adds tape warmth, movement, compression, and optional digital degradation.',
+    card: {
+      summary: 'A tape-inspired VST for warm, characterful sound.',
+      labelColor: 'purple',
+      buttonColor: 'purple',
+    },
     visual: 'tape-machine',
     sections: [
       {

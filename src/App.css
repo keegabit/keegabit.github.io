@@ -66,7 +66,7 @@ nav a:hover {
 
 .section-badge,
 .tiny-label,
-.ping-pan-art > span {
+.project-visual-badge {
   display: inline-flex;
   min-height: 28px;
   padding: 4px 10px;
@@ -230,19 +230,33 @@ nav a:hover {
   border-bottom: 2px solid #cdddea;
 }
 
-.ping-pan-art {
+.project-visual {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.project-visual-media {
+  width: 100%;
+  height: 100%;
+}
+
+.project-visual-ping-pan {
   background: #5bc1ed;
 }
 
-.ping-pan-art img {
+.project-visual img {
   width: 100%;
   height: 100%;
-  min-height: 0;
   object-fit: cover;
+}
+
+.project-visual-ping-pan img {
   object-position: center;
 }
 
-.ping-pan-art > span {
+.project-visual-badge {
   position: absolute;
   top: 13px;
   left: 13px;
@@ -251,9 +265,17 @@ nav a:hover {
   box-shadow: 0 3px 0 #7ecf57;
 }
 
-.tp-art {
-  padding: 28px 18px;
+.project-visual-tp-games {
   background: #dff5ff;
+}
+
+.tp-visual-content {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  padding: 28px 18px;
+  place-items: center;
+  align-content: center;
 }
 
 .tp-logo {
@@ -296,14 +318,11 @@ nav a:hover {
   font-weight: 900;
 }
 
-.tape-art {
+.project-visual-tape-machine {
   background: #171914;
 }
 
-.tape-art img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.project-visual-tape-machine img {
   object-position: top;
 }
 

@@ -1,8 +1,9 @@
 import { type ReactNode, useEffect, useState } from 'react'
 import { MotionConfig, motion, useReducedMotion } from 'motion/react'
 import './App.css'
+import ProjectCard from './ProjectCard'
 import ProjectPage from './ProjectPage'
-import { projectsBySlug } from './projects'
+import { projects, projectsBySlug } from './projects'
 
 const socialLinks = [
   ['GitHub', 'https://github.com/keegabit', 'blue'],
@@ -128,112 +129,11 @@ function App() {
             </Reveal>
 
             <div className="project-grid">
-              <Reveal>
-                <motion.article
-                  className="project-card ping-pan-card"
-                  whileHover={reduceMotion ? undefined : { y: -5 }}
-                  whileTap={{ scale: 0.99 }}
-                >
-                  <a
-                    className="project-art ping-pan-art"
-                    href="#/projects/ping-pan"
-                    aria-label="Read the Ping Pan project story"
-                  >
-                    <img
-                      src="/ping-pan-hero.jpg"
-                      alt="Ping Pan game artwork"
-                      width="1920"
-                      height="620"
-                    />
-                    <span>Released</span>
-                  </a>
-                  <div className="project-copy">
-                    <div>
-                      <span className="tiny-label green-label">Game</span>
-                      <h3>Ping Pan</h3>
-                      <p>A playful physics puzzle game.</p>
-                    </div>
-                    <a
-                      className="chunky-button yellow-button"
-                      href="#/projects/ping-pan"
-                    >
-                      Read the story →
-                    </a>
-                  </div>
-                </motion.article>
-              </Reveal>
-
-              <Reveal>
-                <motion.article
-                  className="project-card tp-card"
-                  whileHover={reduceMotion ? undefined : { y: -5 }}
-                  whileTap={{ scale: 0.99 }}
-                >
-                  <a
-                    className="project-art tp-art"
-                    href="#/projects/tp-games"
-                    aria-label="Read the tp.games project story"
-                  >
-                    <div className="tp-logo">TP</div>
-                    <div className="tp-steps" aria-hidden="true">
-                      <span>HOST</span>
-                      <i>→</i>
-                      <span>JOIN</span>
-                      <i>→</i>
-                      <span>PLAY</span>
-                    </div>
-                  </a>
-                  <div className="project-copy">
-                    <div>
-                      <span className="tiny-label blue-label">Platform</span>
-                      <h3>tp.games</h3>
-                      <p>Instant multiplayer games for any screen.</p>
-                    </div>
-                    <a
-                      className="chunky-button blue-button"
-                      href="#/projects/tp-games"
-                    >
-                      Read the story →
-                    </a>
-                  </div>
-                </motion.article>
-              </Reveal>
-
-              <Reveal>
-                <motion.article
-                  className="project-card tape-card"
-                  whileHover={reduceMotion ? undefined : { y: -5 }}
-                  whileTap={{ scale: 0.99 }}
-                >
-                  <a
-                    className="project-art tape-art"
-                    href="#/projects/tape-machine"
-                    aria-label="Read the Tape Machine project story"
-                  >
-                    <img
-                      src="/tape-machine-vst.png"
-                      alt="Tape Machine VST interface with tape reels, VU meters, and analog controls"
-                      width="1383"
-                      height="1062"
-                    />
-                  </a>
-                  <div className="project-copy">
-                    <div>
-                      <span className="tiny-label purple-label">
-                        Audio plugin
-                      </span>
-                      <h3>Tape Machine</h3>
-                      <p>A tape-inspired VST for warm, characterful sound.</p>
-                    </div>
-                    <a
-                      className="chunky-button purple-button"
-                      href="#/projects/tape-machine"
-                    >
-                      Read the story →
-                    </a>
-                  </div>
-                </motion.article>
-              </Reveal>
+              {projects.map((project) => (
+                <Reveal key={project.slug}>
+                  <ProjectCard project={project} />
+                </Reveal>
+              ))}
             </div>
           </section>
 
