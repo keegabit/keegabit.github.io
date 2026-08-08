@@ -285,6 +285,20 @@ nav a:hover {
   font-weight: 900;
 }
 
+.tape-art {
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  background: #171914;
+}
+
+.tape-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
 .project-copy {
   display: grid;
   gap: 25px;
@@ -322,6 +336,12 @@ nav a:hover {
   border-color: #a8daf1;
   color: #0879ac;
   background: #e8f8ff;
+}
+
+.purple-label {
+  border-color: #d4b8f5;
+  color: #7432aa;
+  background: #f5ebff;
 }
 
 .links-section {
@@ -460,6 +480,27 @@ footer p {
 
   .project-copy {
     margin-top: auto;
+  }
+
+  .tape-project {
+    grid-column: 1 / -1;
+  }
+
+  .tape-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+  }
+
+  .tape-art {
+    min-height: 330px;
+    aspect-ratio: auto;
+    border-right: 2px solid #cdddea;
+    border-bottom: 0;
+  }
+
+  .tape-card .project-copy {
+    margin-top: 0;
+    align-content: center;
   }
 
   .links-section {

@@ -172,6 +172,31 @@ function App() {
                   </div>
                 </motion.article>
               </Reveal>
+
+              <Reveal className="tape-project">
+                <motion.article
+                  className="project-card tape-card"
+                  whileHover={reduceMotion ? undefined : { y: -5 }}
+                >
+                  <div className="project-art tape-art">
+                    <img
+                      src="/tape-machine-vst.png"
+                      alt="Tape Machine VST interface with tape reels, VU meters, and analog controls"
+                      width="1383"
+                      height="1062"
+                    />
+                  </div>
+                  <div className="project-copy">
+                    <div>
+                      <span className="tiny-label purple-label">
+                        Audio plugin
+                      </span>
+                      <h3>Tape Machine</h3>
+                      <p>A tape-inspired VST for warm, characterful sound.</p>
+                    </div>
+                  </div>
+                </motion.article>
+              </Reveal>
             </div>
           </section>
 
