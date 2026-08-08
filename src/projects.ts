@@ -29,7 +29,7 @@ export type Project = {
     buttonColor: 'yellow' | 'blue' | 'purple'
     badge?: string
   }
-  visual: 'ping-pan' | 'tp-games' | 'tape-machine' | 'handwritten-outreach'
+  visual: 'ping-pan' | 'tp-games' | 'tape-machine' | 'handwritten-outreach' | 'dum-daw'
   externalLink?: {
     label: string
     href: string
@@ -473,6 +473,66 @@ export const projects: Project[] = [
               'A custom AI model trained to generate handwriting',
               'Machine-ready output for a physical letter-writing robot',
               'A repeatable workflow designed for sales teams',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'dum-daw',
+    title: 'DumDAW - Digital Audio Workstation for the web',
+    label: 'Web DAW',
+    summary: 'A browser-based digital audio workstation for arranging patterns, instruments, samples, and mixes in one workspace.',
+    card: {
+      summary: 'A digital audio workstation that runs in the browser.',
+      labelColor: 'purple',
+      buttonColor: 'purple',
+      badge: 'Prototype',
+    },
+    visual: 'dum-daw',
+    sections: [
+      {
+        id: 'what-it-is',
+        title: 'What it is',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'DumDAW is a digital audio workstation for the web. It brings the core surfaces of a music production setup into one browser workspace: a sound library, channel rack, piano roll, playlist, instruments, and mixer.',
+          },
+          {
+            type: 'image',
+            src: '/dum-daw.png',
+            alt: 'DumDAW browser-based digital audio workstation interface',
+            caption: 'A web DAW workspace for arranging patterns, shaping instruments, and mixing tracks.',
+          },
+        ],
+      },
+      {
+        id: 'why-it-exists',
+        title: 'Why I made it',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'I wanted to explore what a music-making tool feels like when it opens directly in a browser. DumDAW is designed around a familiar production flow, while keeping the whole workspace available without a traditional desktop installation.',
+          },
+        ],
+      },
+      {
+        id: 'how-it-was-made',
+        title: 'How it was made',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'The interface is organized around the way a track is built: choose sounds, create patterns, arrange them on a playlist, shape instruments, and route everything through a mixer. The current project is a working web interface and a foundation for deeper browser-native audio features.',
+          },
+          {
+            type: 'list',
+            items: [
+              'Browser-based sound library and sample workflow',
+              'Pattern sequencing and playlist arrangement',
+              'Instrument controls and piano-roll editing',
+              'Mixer routing for web-based tracks and effects',
             ],
           },
         ],

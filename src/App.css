@@ -337,6 +337,14 @@ nav a:hover {
   object-position: center 44%;
 }
 
+.project-visual-dum-daw {
+  background: #151b21;
+}
+
+.project-visual-dum-daw img {
+  object-position: center;
+}
+
 .project-copy {
   display: flex;
   flex: 1;

@@ -42,6 +42,15 @@ export default function ProjectVisual({
           />
         )}
 
+        {project.visual === 'dum-daw' && (
+          <img
+            src="/dum-daw.png"
+            alt="DumDAW digital audio workstation interface"
+            width="1906"
+            height="1011"
+          />
+        )}
+
         {project.visual === 'tp-games' && (
           <div className="tp-visual-content" aria-label="tp.games host, join, play flow">
             <div className="tp-logo">TP</div>
