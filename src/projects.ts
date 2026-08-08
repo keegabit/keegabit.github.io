@@ -316,6 +316,35 @@ export const projects: Project[] = [
         ],
       },
       {
+        id: 'web-version',
+        title: 'Coming to the web',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'I am also working on a browser-supported version of Tape Machine. The goal is to make the same sound engine available beyond desktop plugin hosts without rewriting the DSP in JavaScript or creating a separate, less capable effect.',
+          },
+          {
+            type: 'image',
+            src: '/tape-machine-web-architecture.png',
+            alt: 'Architecture diagram showing the Tape Machine C++ DSP core targeting both JUCE VST3 and a WebAssembly audio worklet for compatible web DAWs',
+            caption: 'One portable C++ DSP core supports the existing JUCE VST3 build and the in-progress browser path.',
+          },
+          {
+            type: 'paragraph',
+            text: 'For the web version, the portable C++ DSP core is compiled to WebAssembly with Emscripten. The processor runs inside an AudioWorklet so real-time audio stays off the browser’s main interface thread, while an HTML, CSS, and Canvas interface provides the controls and visual feedback.',
+          },
+          {
+            type: 'paragraph',
+            text: 'A WAM 2 adapter connects those pieces and makes the effect usable inside compatible web-based DAWs. This structure lets the desktop and browser versions share the audio engine while each platform gets an interface and plugin layer built for its environment.',
+          },
+          {
+            type: 'callout',
+            title: 'Work in progress',
+            text: 'The current focus is preserving the character and behavior of the desktop plugin while making the processing reliable in a browser’s real-time audio environment.',
+          },
+        ],
+      },
+      {
         id: 'validation',
         title: 'Validation',
         blocks: [
