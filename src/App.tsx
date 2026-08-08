@@ -58,8 +58,8 @@ function Reveal({
 
 function App() {
   const reduceMotion = useReducedMotion()
-  const heroTitleRef = useRef<HTMLHeadingElement>(null)
-  const [heroTitleHeight, setHeroTitleHeight] = useState<number>()
+  const heroCopyRef = useRef<HTMLDivElement>(null)
+  const [heroCopyHeight, setHeroCopyHeight] = useState<number>()
   const [hash, setHash] = useState(() => window.location.hash)
   const hashRef = useRef(hash)
   const [seenProjectSlugs, setSeenProjectSlugs] = useState(getSeenProjects)
@@ -71,16 +71,16 @@ function App() {
   const activeProject = projectSlug ? projectsBySlug[projectSlug] : undefined
 
   useLayoutEffect(() => {
-    if (activeProject || !heroTitleRef.current) return
+    if (activeProject || !heroCopyRef.current) return
 
-    const title = heroTitleRef.current
-    const matchCardToTitle = () => {
-      setHeroTitleHeight(Math.round(title.getBoundingClientRect().height))
+    const heroCopy = heroCopyRef.current
+    const matchCardToCopy = () => {
+      setHeroCopyHeight(Math.round(heroCopy.getBoundingClientRect().height))
     }
 
-    matchCardToTitle()
-    const observer = new ResizeObserver(matchCardToTitle)
-    observer.observe(title)
+    matchCardToCopy()
+    const observer = new ResizeObserver(matchCardToCopy)
+    observer.observe(heroCopy)
     return () => observer.disconnect()
   }, [activeProject])
 
@@ -178,12 +178,13 @@ function App() {
           <main>
           <section className="hero">
             <motion.div
+              ref={heroCopyRef}
               className="hero-copy"
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 130, damping: 16 }}
             >
-              <h1 ref={heroTitleRef}>I make software with personality.</h1>
+              <h1>I make software with personality.</h1>
               <p>Code, games, and fun ideas.</p>
               <motion.a
                 className="chunky-button green-button"
@@ -197,7 +198,7 @@ function App() {
 
             <motion.div
               className="hero-avatar-card"
-              style={heroTitleHeight ? { height: heroTitleHeight } : undefined}
+              style={heroCopyHeight ? { height: heroCopyHeight } : undefined}
               initial={{ opacity: 0, scale: 0.8, rotate: 4 }}
               animate={{ opacity: 1, scale: 1, rotate: -2 }}
               transition={{
