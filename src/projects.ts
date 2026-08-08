@@ -198,7 +198,7 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'I wanted one hands-on effect that could make clean digital audio feel warmer and less static, then push it further into intentional lo-fi texture when a track needs more character—without forcing producers to build that sound from a long chain of separate effects.',
+            text: 'I wanted one hands-on effect that could make clean digital audio feel warmer and less static, then push it further into intentional lo-fi texture when a track needs more character, without forcing producers to build that sound from a long chain of separate effects.',
           },
         ],
       },
@@ -364,7 +364,7 @@ export const projects: Project[] = [
           {
             type: 'callout',
             title: 'Technical definition',
-            text: 'Tape Machine is a musical tape-saturation, transport-modulation, and digital-degradation VST3—not a fully physical magnetic hysteresis simulation.',
+            text: 'Tape Machine is a musical tape-saturation, transport-modulation, and digital-degradation VST3, not a fully physical magnetic hysteresis simulation.',
           },
         ],
       },
@@ -389,7 +389,7 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'Handwritten Outreach is a sales automation system that creates and physically writes personalized letters for clients. It uses meaningful details already stored in a CRM—such as a birthday, a home purchase date, or another relationship milestone—to make each note relevant to the person receiving it.',
+            text: 'Handwritten Outreach is a sales automation system that creates and physically writes personalized letters for clients. It uses meaningful details already stored in a CRM, including a birthday, a home purchase date, or another relationship milestone, to make each note relevant to the person receiving it.',
           },
           {
             type: 'image',

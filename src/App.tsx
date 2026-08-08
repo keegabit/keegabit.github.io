@@ -112,8 +112,8 @@ function App() {
 
   useEffect(() => {
     document.title = activeProject
-      ? `${activeProject.title} — keegabit`
-      : 'keegabit — playful software'
+      ? `${activeProject.title} | keegabit`
+      : 'keegabit | playful software'
   }, [activeProject])
 
   useEffect(() => {
