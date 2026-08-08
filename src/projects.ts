@@ -152,13 +152,21 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'Tape Machine is a Windows VST3 audio effect for FL Studio and other compatible hosts. It combines tape-style saturation and modulation with a separate lo-fi Degrade stage.',
+            text: 'Tape Machine is a Windows VST3 audio effect designed for FL Studio and other compatible hosts. It adds the warmth, movement, compression, and imperfections commonly associated with analog tape recording.',
+          },
+          {
+            type: 'paragraph',
+            text: 'The main tape section provides saturation, bias coloration, tone shaping, wow, flutter, hiss, parallel mixing, and output control. A separate Degrade section adds optional digital lo-fi processing through bit-depth reduction, sample-rate reduction, nonlinear coloration, and filtering.',
           },
           {
             type: 'image',
             src: '/tape-machine-vst.png',
             alt: 'Tape Machine plugin interface',
-            caption: 'The interface groups tape processing, metering, and degradation controls into a hardware-inspired panel.',
+            caption: 'Animated reels, analog VU meters, LED meters, metal controls, and grouped processing sections give the plugin a hardware-inspired interface.',
+          },
+          {
+            type: 'paragraph',
+            text: 'The reels follow the host transport and only rotate during playback. Every knob supports FL Studio’s native right-click automation and controller menu.',
           },
         ],
       },
@@ -168,7 +176,7 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'I wanted one hands-on effect that could make clean digital audio feel warmer and less static, then push it further into intentional lo-fi texture when a track needs more character.',
+            text: 'I wanted one hands-on effect that could make clean digital audio feel warmer and less static, then push it further into intentional lo-fi texture when a track needs more character—without forcing producers to build that sound from a long chain of separate effects.',
           },
         ],
       },
@@ -178,15 +186,134 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'The plugin is written in C++20 with JUCE 9 and CMake. Its controls are organized around coloration, transport movement, noise, parallel mixing, gain staging, and an independently bypassable degradation stage.',
+            text: 'Tape Machine is written in C++20 using JUCE 9 and built with CMake. It produces a 64-bit VST3 plugin and a standalone Windows application.',
           },
           {
             type: 'list',
             items: [
-              '64-bit VST3 plugin and standalone Windows app',
-              'Tape-style drive, saturation, bias, wow, flutter, hiss, and tone controls',
-              'Host automation and project-state recall through JUCE parameter management',
+              'Matched mono and stereo layouts',
+              'No MIDI input and no audio-thread memory allocation',
+              'Atomic values for metering and transport-driven interface animation',
             ],
+          },
+        ],
+      },
+      {
+        id: 'signal-path',
+        title: 'Signal path',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'The processor moves from tape coloration into modulation, then keeps the optional degradation stage and master bypass latency-aligned.',
+          },
+          {
+            type: 'code',
+            language: 'text',
+            caption: 'Audio signal flow',
+            code: `Input
+  → Drive
+  → Biased nonlinear saturation
+  → Head-bump enhancement
+  → Tape tone filtering
+  → Hiss generation
+  → Wow/flutter delay modulation
+  → DC blocking
+  → Latency-aligned dry/wet mix
+  → Optional Degrade stage
+  → Output gain
+  → Latency-aligned master bypass`,
+          },
+          {
+            type: 'callout',
+            title: 'Host latency',
+            text: 'The transport model uses a nominal 6 ms delay and reports that latency to the host for plugin-delay compensation.',
+          },
+        ],
+      },
+      {
+        id: 'tape-processing',
+        title: 'Tape processing',
+        blocks: [
+          {
+            type: 'list',
+            items: [
+              'Drive applies up to 24 dB of gain before the nonlinear tape stage.',
+              'Saturation uses a gain-preserving hyperbolic-tangent transfer curve for gradual harmonic generation and compression.',
+              'Bias offsets the nonlinear transfer curve to introduce asymmetric, even-order harmonics.',
+              'Head bump adds a low-frequency resonance centered around approximately 92 Hz.',
+              'Tone applies a variable low-pass response ranging from roughly 2.4 kHz to 20 kHz.',
+              'Wow uses low-frequency delay modulation around 0.38 Hz, with an additional slow transport wander component.',
+              'Flutter adds faster delay modulation around 6.15 Hz.',
+              'Hiss generates filtered pseudo-random noise with an adjustable level.',
+              'Mix blends the processed and latency-aligned dry paths.',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'degrade-processing',
+        title: 'Degrade processing',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'The independently bypassable Degrade stage can move from subtle digital grit to overt lo-fi processing.',
+          },
+          {
+            type: 'list',
+            items: [
+              'Adjustable clipping and quantization headroom',
+              '4–24-bit amplitude quantization',
+              'Sample-and-hold rate reduction from 1–48 kHz',
+              'Post-reduction low-pass filtering',
+              'Odd/even nonlinear harmonic shaping',
+              'Independent output compensation and DC blocking',
+              'Smoothed bypass crossfading',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'plugin-integration',
+        title: 'Plugin integration',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Parameters are managed through JUCE’s AudioProcessorValueTreeState so the plugin behaves like a native part of the host rather than an isolated effect.',
+          },
+          {
+            type: 'list',
+            items: [
+              'FL Studio automation support',
+              'Project-state and preset recall',
+              'Smoothed parameter changes',
+              'Standard VST3 automation gestures',
+              'Native FL Studio parameter context menus on right-click',
+              'Controller linking and automation-clip creation',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'validation',
+        title: 'Validation',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Automated DSP regression tests protect the parts of the signal path where small changes can create audible or timing-related failures.',
+          },
+          {
+            type: 'list',
+            items: [
+              'Saturation stability and symmetry',
+              'Low-level gain behavior',
+              'Fixed-delay accuracy',
+              'Reported host-latency alignment',
+            ],
+          },
+          {
+            type: 'callout',
+            title: 'Technical definition',
+            text: 'Tape Machine is a musical tape-saturation, transport-modulation, and digital-degradation VST3—not a fully physical magnetic hysteresis simulation.',
           },
         ],
       },
