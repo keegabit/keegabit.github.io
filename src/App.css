@@ -557,8 +557,8 @@ nav a:hover {
 .story-hero {
   position: relative;
   display: flex;
-  min-height: 560px;
-  padding: 42px 18px;
+  min-height: 460px;
+  padding: 34px 18px 36px;
   align-items: flex-end;
   overflow: hidden;
   isolation: isolate;
@@ -601,9 +601,13 @@ nav a:hover {
 }
 
 .story-back {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  left: 18px;
   display: inline-flex;
   min-height: 44px;
-  margin-bottom: 34px;
+  margin: 0;
   padding: 0 14px;
   align-items: center;
   border: 2px solid rgba(255, 255, 255, 0.8);
@@ -805,8 +809,13 @@ footer p {
   }
 
   .story-hero {
-    min-height: 600px;
-    padding: 54px 30px;
+    min-height: 500px;
+    padding: 44px 30px;
+  }
+
+  .story-back {
+    top: 26px;
+    left: 30px;
   }
 
   .story-content {
@@ -850,8 +859,13 @@ footer p {
   }
 
   .story-hero {
-    min-height: 650px;
-    padding: 72px 46px;
+    min-height: 520px;
+    padding: 50px 46px;
+  }
+
+  .story-back {
+    top: 34px;
+    left: 46px;
   }
 
   .story-content {

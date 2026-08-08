@@ -62,16 +62,16 @@ export default function ProjectPage({ project }: { project: Project }) {
         transition={{ type: 'spring', stiffness: 130, damping: 24 }}
       >
         <section className="story-hero">
-        <ProjectVisual project={project} shared />
-        <motion.div
-          className="story-hero-copy"
-          initial={{ opacity: 0, y: 38 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.16, type: 'spring', stiffness: 130, damping: 18 }}
-        >
+          <ProjectVisual project={project} shared />
           <a className="story-back" href="#work">
             ← Back
           </a>
+          <motion.div
+            className="story-hero-copy"
+            initial={{ opacity: 0, y: 38 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.16, type: 'spring', stiffness: 130, damping: 18 }}
+          >
           <span className="section-badge">{project.label}</span>
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
@@ -85,7 +85,7 @@ export default function ProjectPage({ project }: { project: Project }) {
               {project.externalLink.label} ↗
             </a>
           )}
-        </motion.div>
+          </motion.div>
         </section>
 
         <div className="story-content">
