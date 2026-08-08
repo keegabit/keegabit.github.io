@@ -1,3 +1,4 @@
+import { useEffect, useId, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import ProjectVisual from './ProjectVisual'
 import { projects, type Project, type ProjectBlock } from './projects'
@@ -15,6 +16,85 @@ const projectPanelVariants = {
     opacity: 0,
     x: direction * -90,
   }),
+}
+
+function MermaidDiagram({
+  title,
+  ariaLabel,
+  chart,
+}: {
+  title: string
+  ariaLabel: string
+  chart: string
+}) {
+  const instanceId = useId().replace(/:/g, '')
+  const [svg, setSvg] = useState('')
+  const [failed, setFailed] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    const renderId = `project-diagram-${instanceId}-${Math.random().toString(36).slice(2)}`
+
+    setSvg('')
+    setFailed(false)
+
+    void import('mermaid')
+      .then(({ default: mermaid }) => {
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: 'strict',
+          theme: 'base',
+          fontFamily: 'Nunito, system-ui, sans-serif',
+          themeVariables: {
+            primaryColor: '#e7f7ff',
+            primaryTextColor: '#223047',
+            primaryBorderColor: '#78c7e8',
+            secondaryColor: '#fff8dc',
+            tertiaryColor: '#efffe8',
+            lineColor: '#168fc7',
+            edgeLabelBackground: '#ffffff',
+          },
+          flowchart: {
+            curve: 'basis',
+            htmlLabels: true,
+          },
+        })
+
+        return mermaid.render(renderId, chart)
+      })
+      .then(({ svg: renderedSvg }) => {
+        if (!cancelled) setSvg(renderedSvg)
+      })
+      .catch(() => {
+        if (!cancelled) setFailed(true)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [chart, instanceId])
+
+  return (
+    <figure className="story-mermaid">
+      <figcaption>{title}</figcaption>
+      {svg ? (
+        <div
+          className="story-mermaid-canvas"
+          role="img"
+          aria-label={ariaLabel}
+          dangerouslySetInnerHTML={{ __html: svg }}
+        />
+      ) : failed ? (
+        <pre className="story-mermaid-fallback">
+          <code>{chart}</code>
+        </pre>
+      ) : (
+        <div className="story-mermaid-loading" role="status">
+          Drawing workflow…
+        </div>
+      )}
+    </figure>
+  )
 }
 
 function ContentBlock({ block }: { block: ProjectBlock }) {
@@ -60,35 +140,13 @@ function ContentBlock({ block }: { block: ProjectBlock }) {
     )
   }
 
-  if (block.type === 'architecture') {
+  if (block.type === 'mermaid') {
     return (
-      <figure className="story-architecture" aria-label={block.ariaLabel}>
-        <figcaption>{block.title}</figcaption>
-        <div className="architecture-lanes">
-          {block.lanes.map((lane) => (
-            <section className="architecture-lane" key={lane.label}>
-              <h3>{lane.label}</h3>
-              <div className="architecture-flow">
-                {lane.steps.map((step, index) => (
-                  <div className="architecture-flow-item" key={step.title}>
-                    <div
-                      className={`architecture-step${step.tone ? ` ${step.tone}-step` : ''}`}
-                    >
-                      <strong>{step.title}</strong>
-                      <span>{step.text}</span>
-                    </div>
-                    {index < lane.steps.length - 1 && (
-                      <span className="architecture-arrow" aria-hidden="true">
-                        →
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      </figure>
+      <MermaidDiagram
+        title={block.title}
+        ariaLabel={block.ariaLabel}
+        chart={block.chart}
+      />
     )
   }
 

@@ -6,17 +6,10 @@ export type ProjectBlock =
   | { type: 'callout'; title: string; text: string }
   | { type: 'embed'; src: string; title: string }
   | {
-      type: 'architecture'
+      type: 'mermaid'
       title: string
       ariaLabel: string
-      lanes: Array<{
-        label: string
-        steps: Array<{
-          title: string
-          text: string
-          tone?: 'success' | 'warning'
-        }>
-      }>
+      chart: string
     }
 
 export type ProjectSection = {
@@ -85,103 +78,6 @@ export const projects: Project[] = [
           {
             type: 'paragraph',
             text: 'I wanted to make a focused game where a small set of rules could create expressive, funny, and occasionally chaotic moments. The goal was immediate play rather than a long explanation.',
-          },
-        ],
-      },
-      {
-        id: 'automation-architecture',
-        title: 'Automation architecture',
-        blocks: [
-          {
-            type: 'paragraph',
-            text: 'The automation can run on a daily schedule or another configurable interval. Each run looks for upcoming client moments, decides which ones deserve a letter, and creates a durable job that can wait safely until the robot is ready.',
-          },
-          {
-            type: 'architecture',
-            title: 'From CRM moment to mailed letter',
-            ariaLabel: 'Architecture workflow from a scheduled CRM scan through AI letter generation, queueing, robot writing, retries, and CRM status updates',
-            lanes: [
-              {
-                label: '1. Trigger and qualify',
-                steps: [
-                  {
-                    title: 'Scheduled workflow',
-                    text: 'Runs daily or on a configurable interval.',
-                  },
-                  {
-                    title: 'CRM event scan',
-                    text: 'Finds birthdays, home anniversaries, and approved milestones.',
-                  },
-                  {
-                    title: 'Eligibility rules',
-                    text: 'Checks consent, address quality, cooldowns, and duplicate sends.',
-                  },
-                ],
-              },
-              {
-                label: '2. Create the letter',
-                steps: [
-                  {
-                    title: 'Context package',
-                    text: 'Sends only the client details needed for the note.',
-                  },
-                  {
-                    title: 'Letter service',
-                    text: 'Drafts the message and creates handwriting instructions.',
-                  },
-                  {
-                    title: 'Content check',
-                    text: 'Validates the output or requests optional human review.',
-                  },
-                ],
-              },
-              {
-                label: '3. Queue and write',
-                steps: [
-                  {
-                    title: 'Durable letter queue',
-                    text: 'Stores the job with a due date and unique send key.',
-                  },
-                  {
-                    title: 'Robot worker',
-                    text: 'Claims one job when the writing station is online.',
-                  },
-                  {
-                    title: 'Preflight check',
-                    text: 'Confirms paper, pen, workspace, and supported layout.',
-                  },
-                  {
-                    title: 'Write the letter',
-                    text: 'Streams the machine-ready handwriting path to the robot.',
-                  },
-                ],
-              },
-              {
-                label: '4. Close the loop',
-                steps: [
-                  {
-                    title: 'Ready to mail',
-                    text: 'Marks a successful letter for postage and fulfillment.',
-                    tone: 'success',
-                  },
-                  {
-                    title: 'Update the CRM',
-                    text: 'Records the touchpoint and its completion status.',
-                    tone: 'success',
-                  },
-                  {
-                    title: 'Retry or alert',
-                    text: 'If writing fails, returns the job with backoff and alerts an operator.',
-                    tone: 'warning',
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            type: 'callout',
-            title: 'Why the queue matters',
-            text: 'Letter generation and physical writing do not need to happen at the same speed. The queue keeps every approved job safe when the robot is busy, offline, out of paper, or waiting for an operator.',
           },
         ],
       },
@@ -529,6 +425,36 @@ export const projects: Project[] = [
           {
             type: 'paragraph',
             text: 'A physical letter can stand out where another automated email disappears. The system was designed to help sales teams remain memorable, strengthen long-term client relationships, and create natural reasons to reconnect after a transaction is complete.',
+          },
+        ],
+      },
+      {
+        id: 'automation-architecture',
+        title: 'Automation architecture',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'At its simplest, a scheduled workflow checks the CRM for a reason to send a letter, creates the personalized note, and places it in a queue. A separate worker handles the physical robot whenever the machine is ready.',
+          },
+          {
+            type: 'mermaid',
+            title: 'A simplified letter workflow',
+            ariaLabel: 'Simplified workflow showing a scheduled CRM check, letter creation, a queue, a robot worker, writing, retrying, and updating the CRM',
+            chart: `flowchart TD
+    S["Scheduled workflow"] --> CRM["Check CRM for birthdays and milestones"]
+    CRM --> AI["Create personalized letter"]
+    AI --> Q[("Letter queue")]
+    Q --> W["Robot worker picks up the letter"]
+    W --> READY{"Can the robot write it?"}
+    READY -->|"Yes"| WRITE["Robot writes the letter"]
+    WRITE --> DONE["Mark complete in CRM"]
+    READY -->|"No"| RETRY["Wait and try again"]
+    RETRY --> Q`,
+          },
+          {
+            type: 'callout',
+            title: 'Intentionally simplified',
+            text: 'This is an extreme oversimplification of how the system is actually intended to be implemented. A production version would also need privacy controls, duplicate protection, content review, job state, retries, device telemetry, operator alerts, fulfillment, and audit logging.',
           },
         ],
       },
