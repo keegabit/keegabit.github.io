@@ -372,11 +372,11 @@ export const projects: Project[] = [
   },
   {
     slug: 'handwritten-outreach',
-    title: 'Handwritten Outreach',
+    title: 'The AI Robot That Writes Sales Letters',
     label: 'Sales automation',
     summary: 'An AI-powered letter-writing robot that turns CRM moments into timely, personal client outreach.',
     card: {
-      summary: 'Personal handwritten outreach, automated from CRM data.',
+      summary: 'A robot that turns CRM moments into handwritten sales follow-ups.',
       labelColor: 'blue',
       buttonColor: 'blue',
       badge: 'Built for sales',
@@ -389,7 +389,7 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'Handwritten Outreach is a sales automation system that creates and physically writes personalized letters for clients. It uses meaningful details already stored in a CRM, including a birthday, a home purchase date, or another relationship milestone, to make each note relevant to the person receiving it.',
+            text: 'This AI-powered sales automation system creates and physically writes personalized letters for clients. It uses meaningful details already stored in a CRM, including a birthday, a home purchase date, or another relationship milestone, to make each note relevant to the person receiving it.',
           },
           {
             type: 'image',
