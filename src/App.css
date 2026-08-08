@@ -555,10 +555,12 @@ nav a:hover {
 
 .story-project-pagination a {
   display: flex;
-  width: 48px;
+  width: 100px;
   height: 48px;
+  padding: 0 12px;
   align-items: center;
   justify-content: center;
+  gap: 7px;
   border: 2px solid #cdddea;
   border-radius: 14px;
   background: var(--white);
@@ -568,9 +570,16 @@ nav a:hover {
 
 .pagination-arrow {
   color: var(--ink);
-  font-size: 1.35rem;
+  font-size: 1.05rem;
   font-weight: 900;
   line-height: 1;
+}
+
+.pagination-label {
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .pagination-name {
@@ -606,6 +615,10 @@ nav a:hover {
   border-radius: 26px;
   background: var(--white);
   box-shadow: 0 8px 0 #bdd0dd;
+}
+
+.story-project-panel {
+  width: 100%;
 }
 
 .story-hero {
@@ -945,16 +958,16 @@ footer p {
   .story-project-pagination a {
     position: absolute;
     top: -26px;
-    width: 52px;
+    width: 104px;
     height: 52px;
   }
 
   .story-project-pagination .previous-project {
-    left: max(8px, calc((100vw - min(100vw, 1160px)) / 2 - 18px));
+    left: max(8px, calc((100vw - min(100vw, 1160px)) / 2 - 6px));
   }
 
   .story-project-pagination .next-project {
-    right: max(8px, calc((100vw - min(100vw, 1160px)) / 2 - 18px));
+    right: max(8px, calc((100vw - min(100vw, 1160px)) / 2 - 6px));
   }
 
   .pagination-name {
@@ -962,11 +975,11 @@ footer p {
   }
 
   .previous-project .pagination-name {
-    left: 62px;
+    left: 114px;
   }
 
   .next-project .pagination-name {
-    right: 62px;
+    right: 114px;
   }
 
   .story-project-pagination a:hover .pagination-name,

@@ -1,6 +1,21 @@
-import { motion } from 'motion/react'
+import { AnimatePresence, motion } from 'motion/react'
 import ProjectVisual from './ProjectVisual'
 import { projects, type Project, type ProjectBlock } from './projects'
+
+const projectPanelVariants = {
+  enter: (direction: number) => ({
+    opacity: 0,
+    x: direction * 90,
+  }),
+  center: {
+    opacity: 1,
+    x: 0,
+  },
+  exit: (direction: number) => ({
+    opacity: 0,
+    x: direction * -90,
+  }),
+}
 
 function ContentBlock({ block }: { block: ProjectBlock }) {
   if (block.type === 'paragraph') {
@@ -53,7 +68,17 @@ function ContentBlock({ block }: { block: ProjectBlock }) {
   )
 }
 
-export default function ProjectPage({ project }: { project: Project }) {
+export default function ProjectPage({
+  project,
+  isDetailNavigation,
+  navigationDirection,
+  onNavigationComplete,
+}: {
+  project: Project
+  isDetailNavigation: boolean
+  navigationDirection: number
+  onNavigationComplete: () => void
+}) {
   const projectIndex = projects.findIndex((item) => item.slug === project.slug)
   const previousProject =
     projects[(projectIndex - 1 + projects.length) % projects.length]
@@ -63,11 +88,33 @@ export default function ProjectPage({ project }: { project: Project }) {
     <main className={`project-story ${project.visual}-story`}>
       <motion.article
         className="project-story-card"
-        layoutId={`project-card-${project.slug}`}
+        layoutId={
+          isDetailNavigation ? undefined : `project-card-${project.slug}`
+        }
         transition={{ type: 'spring', stiffness: 130, damping: 24 }}
       >
+        <AnimatePresence
+          initial={false}
+          mode="wait"
+          custom={navigationDirection}
+        >
+          <motion.div
+            key={project.slug}
+            className="story-project-panel"
+            custom={navigationDirection}
+            variants={projectPanelVariants}
+            initial={isDetailNavigation ? 'enter' : false}
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.24, ease: 'easeOut' }}
+            onAnimationComplete={(definition) => {
+              if (isDetailNavigation && definition === 'center') {
+                onNavigationComplete()
+              }
+            }}
+          >
         <section className="story-hero">
-          <ProjectVisual project={project} shared />
+          <ProjectVisual project={project} shared={!isDetailNavigation} />
           <a className="story-back" href="#work">
             ← Back
           </a>
@@ -121,28 +168,33 @@ export default function ProjectPage({ project }: { project: Project }) {
             </a>
           </div>
 
-          <nav className="story-project-pagination" aria-label="More projects">
-            <a
-              className="previous-project"
-              href={`#/projects/${previousProject.slug}`}
-              aria-label={`Previous project: ${previousProject.title}`}
-              title={`Previous: ${previousProject.title}`}
-            >
-              <span className="pagination-arrow" aria-hidden="true">←</span>
-              <span className="pagination-name">{previousProject.title}</span>
-            </a>
-            <a
-              className="next-project"
-              href={`#/projects/${nextProject.slug}`}
-              aria-label={`Next project: ${nextProject.title}`}
-              title={`Next: ${nextProject.title}`}
-            >
-              <span className="pagination-name">{nextProject.title}</span>
-              <span className="pagination-arrow" aria-hidden="true">→</span>
-            </a>
-          </nav>
         </div>
+          </motion.div>
+        </AnimatePresence>
       </motion.article>
+
+      <nav className="story-project-pagination" aria-label="More projects">
+        <a
+          className="previous-project"
+          href={`#/projects/${previousProject.slug}`}
+          aria-label={`Previous project: ${previousProject.title}`}
+          title={`Previous: ${previousProject.title}`}
+        >
+          <span className="pagination-arrow" aria-hidden="true">←</span>
+          <span className="pagination-label">Previous</span>
+          <span className="pagination-name">{previousProject.title}</span>
+        </a>
+        <a
+          className="next-project"
+          href={`#/projects/${nextProject.slug}`}
+          aria-label={`Next project: ${nextProject.title}`}
+          title={`Next: ${nextProject.title}`}
+        >
+          <span className="pagination-name">{nextProject.title}</span>
+          <span className="pagination-label">Next</span>
+          <span className="pagination-arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
     </main>
   )
 }

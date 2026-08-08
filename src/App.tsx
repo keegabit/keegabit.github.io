@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useState } from 'react'
+import { type ReactNode, useEffect, useRef, useState } from 'react'
 import { LayoutGroup, MotionConfig, motion, useReducedMotion } from 'motion/react'
 import './App.css'
 import ProjectCard from './ProjectCard'
@@ -10,6 +10,10 @@ const socialLinks = [
   ['X / Twitter', 'https://x.com/keegabit', 'purple'],
   ['YouTube', 'https://www.youtube.com/@keegabit', 'red'],
 ]
+
+function getProjectSlug(hash: string) {
+  return hash.match(/^#\/projects\/([^/]+)/)?.[1]
+}
 
 function Reveal({
   children,
@@ -34,11 +38,36 @@ function Reveal({
 function App() {
   const reduceMotion = useReducedMotion()
   const [hash, setHash] = useState(() => window.location.hash)
-  const projectSlug = hash.match(/^#\/projects\/([^/]+)/)?.[1]
+  const hashRef = useRef(hash)
+  const [projectNavigation, setProjectNavigation] = useState({
+    isDetailNavigation: false,
+    direction: 1,
+  })
+  const projectSlug = getProjectSlug(hash)
   const activeProject = projectSlug ? projectsBySlug[projectSlug] : undefined
 
   useEffect(() => {
-    const handleHashChange = () => setHash(window.location.hash)
+    const handleHashChange = () => {
+      const nextHash = window.location.hash
+      const previousSlug = getProjectSlug(hashRef.current)
+      const nextSlug = getProjectSlug(nextHash)
+      const isDetailNavigation = Boolean(
+        previousSlug && nextSlug && previousSlug !== nextSlug,
+      )
+
+      let direction = 1
+      if (isDetailNavigation && previousSlug && nextSlug) {
+        const previousIndex = projects.findIndex(
+          (project) => project.slug === previousSlug,
+        )
+        const followingProject = projects[(previousIndex + 1) % projects.length]
+        direction = followingProject.slug === nextSlug ? 1 : -1
+      }
+
+      setProjectNavigation({ isDetailNavigation, direction })
+      hashRef.current = nextHash
+      setHash(nextHash)
+    }
     window.addEventListener('hashchange', handleHashChange)
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
@@ -79,7 +108,17 @@ function App() {
 
         <LayoutGroup>
           {activeProject ? (
-            <ProjectPage project={activeProject} />
+            <ProjectPage
+              project={activeProject}
+              isDetailNavigation={projectNavigation.isDetailNavigation}
+              navigationDirection={projectNavigation.direction}
+              onNavigationComplete={() =>
+                setProjectNavigation((current) => ({
+                  ...current,
+                  isDetailNavigation: false,
+                }))
+              }
+            />
           ) : (
           <main>
           <section className="hero">
