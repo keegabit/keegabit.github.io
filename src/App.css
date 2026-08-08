@@ -64,13 +64,6 @@ nav a:hover {
   gap: 42px;
 }
 
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.hero-badges span,
 .section-badge,
 .tiny-label,
 .ping-pan-art > span {
@@ -89,7 +82,7 @@ nav a:hover {
 
 .hero h1 {
   max-width: 700px;
-  margin: 24px 0 14px;
+  margin: 0 0 14px;
   font-size: clamp(3.25rem, 15vw, 6.8rem);
   font-weight: 900;
   line-height: 0.93;

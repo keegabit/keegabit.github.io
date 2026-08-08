@@ -53,10 +53,6 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', stiffness: 130, damping: 16 }}
             >
-              <div className="hero-badges">
-                <span>Developer</span>
-                <span>Game maker</span>
-              </div>
               <h1>I make playful software.</h1>
               <p>Code, games, and fun ideas.</p>
               <motion.a
