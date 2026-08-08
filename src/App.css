@@ -539,6 +539,46 @@ nav a:hover {
   font-weight: 900;
 }
 
+.story-project-pagination {
+  display: grid;
+  width: min(100%, 760px);
+  margin: 56px auto 0;
+  padding-top: 28px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  border-top: 2px solid var(--line);
+}
+
+.story-project-pagination a {
+  display: flex;
+  min-height: 86px;
+  padding: 14px;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid #cdddea;
+  border-radius: 15px;
+  background: var(--white);
+  box-shadow: 0 5px 0 #bdd0dd;
+}
+
+.story-project-pagination a:last-child {
+  text-align: right;
+}
+
+.story-project-pagination span {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.story-project-pagination strong {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
 /* Project stories use the card art as a shared, immersive page header. */
 .project-story {
   padding: 14px 12px 76px;

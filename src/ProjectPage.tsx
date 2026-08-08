@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
 import ProjectVisual from './ProjectVisual'
-import type { Project, ProjectBlock } from './projects'
+import { projects, type Project, type ProjectBlock } from './projects'
 
 function ContentBlock({ block }: { block: ProjectBlock }) {
   if (block.type === 'paragraph') {
@@ -54,6 +54,11 @@ function ContentBlock({ block }: { block: ProjectBlock }) {
 }
 
 export default function ProjectPage({ project }: { project: Project }) {
+  const projectIndex = projects.findIndex((item) => item.slug === project.slug)
+  const previousProject =
+    projects[(projectIndex - 1 + projects.length) % projects.length]
+  const nextProject = projects[(projectIndex + 1) % projects.length]
+
   return (
     <main className={`project-story ${project.visual}-story`}>
       <motion.article
@@ -115,6 +120,17 @@ export default function ProjectPage({ project }: { project: Project }) {
               ← Back to all projects
             </a>
           </div>
+
+          <nav className="story-project-pagination" aria-label="More projects">
+            <a href={`#/projects/${previousProject.slug}`}>
+              <span>Previous project</span>
+              <strong>← {previousProject.title}</strong>
+            </a>
+            <a href={`#/projects/${nextProject.slug}`}>
+              <span>Next project</span>
+              <strong>{nextProject.title} →</strong>
+            </a>
+          </nav>
         </div>
       </motion.article>
     </main>
