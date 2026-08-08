@@ -67,9 +67,9 @@ function App() {
     <MotionConfig reducedMotion="user">
       <div className="page-shell" id="top">
         <header>
-          <a className="brand" href="#top" aria-label="Keegabit, back to top">
+          <a className="brand" href="#top" aria-label="keegabit.dev, back to top">
             <span>K</span>
-            keegabit
+            keegabit.dev
           </a>
           <nav aria-label="Primary navigation">
             <a href="#work">Work</a>
