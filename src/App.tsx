@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useState } from 'react'
-import { MotionConfig, motion, useReducedMotion } from 'motion/react'
+import { LayoutGroup, MotionConfig, motion, useReducedMotion } from 'motion/react'
 import './App.css'
 import ProjectCard from './ProjectCard'
 import ProjectPage from './ProjectPage'
@@ -77,10 +77,11 @@ function App() {
           </nav>
         </header>
 
-        {activeProject ? (
-          <ProjectPage project={activeProject} />
-        ) : (
-        <main>
+        <LayoutGroup>
+          {activeProject ? (
+            <ProjectPage project={activeProject} />
+          ) : (
+          <main>
           <section className="hero">
             <motion.div
               className="hero-copy"
@@ -163,8 +164,9 @@ function App() {
               ))}
             </div>
           </section>
-        </main>
-        )}
+          </main>
+          )}
+        </LayoutGroup>
 
         <footer>
           <span className="footer-mark">K</span>

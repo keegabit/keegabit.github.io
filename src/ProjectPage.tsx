@@ -1,42 +1,6 @@
 import { motion } from 'motion/react'
+import ProjectVisual from './ProjectVisual'
 import type { Project, ProjectBlock } from './projects'
-
-function ProjectCover({ project }: { project: Project }) {
-  if (project.visual === 'ping-pan') {
-    return (
-      <img
-        src="/ping-pan-hero.jpg"
-        alt="Ping Pan game artwork"
-        width="1920"
-        height="620"
-      />
-    )
-  }
-
-  if (project.visual === 'tape-machine') {
-    return (
-      <img
-        src="/tape-machine-vst.png"
-        alt="Tape Machine VST interface"
-        width="1383"
-        height="1062"
-      />
-    )
-  }
-
-  return (
-    <div className="story-tp-cover" aria-label="tp.games host, join, play flow">
-      <div className="tp-logo">TP</div>
-      <div className="tp-steps" aria-hidden="true">
-        <span>HOST</span>
-        <i>→</i>
-        <span>JOIN</span>
-        <i>→</i>
-        <span>PLAY</span>
-      </div>
-    </div>
-  )
-}
 
 function ContentBlock({ block }: { block: ProjectBlock }) {
   if (block.type === 'paragraph') {
@@ -92,42 +56,36 @@ function ContentBlock({ block }: { block: ProjectBlock }) {
 export default function ProjectPage({ project }: { project: Project }) {
   return (
     <main className={`project-story ${project.visual}-story`}>
-      <motion.div
-        className="story-intro"
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ type: 'spring', stiffness: 140, damping: 18 }}
-      >
-        <a className="story-back" href="#work">
-          ← All projects
-        </a>
-        <span className="section-badge">{project.label}</span>
-        <h1>{project.title}</h1>
-        <p>{project.summary}</p>
-        {project.externalLink && (
-          <a
-            className="chunky-button blue-button"
-            href={project.externalLink.href}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {project.externalLink.label} ↗
+      <section className="story-hero">
+        <ProjectVisual project={project} shared />
+        <motion.div
+          className="story-hero-copy"
+          initial={{ opacity: 0, y: 38 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.16, type: 'spring', stiffness: 130, damping: 18 }}
+        >
+          <a className="story-back" href="#work">
+            ← All projects
           </a>
-        )}
-      </motion.div>
+          <span className="section-badge">{project.label}</span>
+          <h1>{project.title}</h1>
+          <p>{project.summary}</p>
+          {project.externalLink && (
+            <a
+              className="chunky-button blue-button"
+              href={project.externalLink.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {project.externalLink.label} ↗
+            </a>
+          )}
+        </motion.div>
+      </section>
 
-      <motion.div
-        className="story-cover"
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.08 }}
-      >
-        <ProjectCover project={project} />
-      </motion.div>
-
-      <div className="story-layout">
-        <aside className="story-nav" aria-label="On this page">
-          <strong>On this page</strong>
+      <div className="story-content">
+        <nav className="story-nav" aria-label="Explore this project">
+          <strong>Explore</strong>
           {project.sections.map((section) => (
             <a
               key={section.id}
@@ -136,7 +94,7 @@ export default function ProjectPage({ project }: { project: Project }) {
               {section.title}
             </a>
           ))}
-        </aside>
+        </nav>
 
         <article className="story-article">
           {project.sections.map((section) => (
