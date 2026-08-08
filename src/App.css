@@ -554,10 +554,11 @@ nav a:hover {
 }
 
 .story-project-pagination a {
+  position: relative;
   display: flex;
-  width: 100px;
+  width: 76px;
   height: 48px;
-  padding: 0 12px;
+  padding: 0 9px;
   align-items: center;
   justify-content: center;
   gap: 7px;
@@ -568,11 +569,12 @@ nav a:hover {
   pointer-events: auto;
 }
 
-.pagination-arrow {
-  color: var(--ink);
-  font-size: 1.05rem;
-  font-weight: 900;
-  line-height: 1;
+.story-project-pagination .previous-project {
+  margin-right: auto;
+}
+
+.story-project-pagination .next-project {
+  margin-left: auto;
 }
 
 .pagination-label {
@@ -600,6 +602,22 @@ nav a:hover {
   text-overflow: ellipsis;
   white-space: nowrap;
   pointer-events: none;
+}
+
+.pagination-unseen {
+  position: absolute;
+  top: -9px;
+  right: -8px;
+  padding: 3px 6px;
+  border: 2px solid var(--white);
+  border-radius: 999px;
+  color: var(--white);
+  background: var(--blue);
+  box-shadow: 0 3px 0 var(--blue-dark);
+  font-size: 0.55rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 /* Project stories use the card art as a shared, immersive page header. */
@@ -921,7 +939,7 @@ footer p {
   }
 
   .project-story {
-    padding: 38px 46px 110px;
+    padding: 38px 88px 110px;
   }
 
   .story-hero {
@@ -954,16 +972,17 @@ footer p {
   .story-project-pagination a {
     position: absolute;
     top: -26px;
-    width: 104px;
+    width: 76px;
     height: 52px;
+    margin: 0;
   }
 
   .story-project-pagination .previous-project {
-    left: max(8px, calc((100vw - min(100vw, 1160px)) / 2 - 6px));
+    left: max(8px, calc((100vw - min(100vw, 1160px)) / 2));
   }
 
   .story-project-pagination .next-project {
-    right: max(8px, calc((100vw - min(100vw, 1160px)) / 2 - 6px));
+    right: max(8px, calc((100vw - min(100vw, 1160px)) / 2));
   }
 
   .pagination-name {
@@ -971,11 +990,11 @@ footer p {
   }
 
   .previous-project .pagination-name {
-    left: 114px;
+    left: 86px;
   }
 
   .next-project .pagination-name {
-    right: 114px;
+    right: 86px;
   }
 
   .story-project-pagination a:hover .pagination-name,

@@ -70,19 +70,20 @@ function ContentBlock({ block }: { block: ProjectBlock }) {
 
 export default function ProjectPage({
   project,
+  seenProjectSlugs,
   isDetailNavigation,
   navigationDirection,
   onNavigationComplete,
 }: {
   project: Project
+  seenProjectSlugs: string[]
   isDetailNavigation: boolean
   navigationDirection: number
   onNavigationComplete: () => void
 }) {
   const projectIndex = projects.findIndex((item) => item.slug === project.slug)
-  const previousProject =
-    projects[(projectIndex - 1 + projects.length) % projects.length]
-  const nextProject = projects[(projectIndex + 1) % projects.length]
+  const previousProject = projects[projectIndex - 1]
+  const nextProject = projects[projectIndex + 1]
 
   return (
     <main className={`project-story ${project.visual}-story`}>
@@ -173,26 +174,34 @@ export default function ProjectPage({
       </AnimatePresence>
 
       <nav className="story-project-pagination" aria-label="More projects">
-        <a
-          className="previous-project"
-          href={`#/projects/${previousProject.slug}`}
-          aria-label={`Previous project: ${previousProject.title}`}
-          title={`Previous: ${previousProject.title}`}
-        >
-          <span className="pagination-arrow" aria-hidden="true">←</span>
-          <span className="pagination-label">Previous</span>
-          <span className="pagination-name">{previousProject.title}</span>
-        </a>
-        <a
-          className="next-project"
-          href={`#/projects/${nextProject.slug}`}
-          aria-label={`Next project: ${nextProject.title}`}
-          title={`Next: ${nextProject.title}`}
-        >
-          <span className="pagination-name">{nextProject.title}</span>
-          <span className="pagination-label">Next</span>
-          <span className="pagination-arrow" aria-hidden="true">→</span>
-        </a>
+        {previousProject && (
+          <a
+            className="previous-project"
+            href={`#/projects/${previousProject.slug}`}
+            aria-label={`Previous project: ${previousProject.title}`}
+            title={`Previous: ${previousProject.title}`}
+          >
+            <span className="pagination-label">Previous</span>
+            <span className="pagination-name">{previousProject.title}</span>
+            {!seenProjectSlugs.includes(previousProject.slug) && (
+              <span className="pagination-unseen">New</span>
+            )}
+          </a>
+        )}
+        {nextProject && (
+          <a
+            className="next-project"
+            href={`#/projects/${nextProject.slug}`}
+            aria-label={`Next project: ${nextProject.title}`}
+            title={`Next: ${nextProject.title}`}
+          >
+            <span className="pagination-name">{nextProject.title}</span>
+            <span className="pagination-label">Next</span>
+            {!seenProjectSlugs.includes(nextProject.slug) && (
+              <span className="pagination-unseen">New</span>
+            )}
+          </a>
+        )}
       </nav>
     </main>
   )

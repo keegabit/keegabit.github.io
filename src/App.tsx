@@ -11,6 +11,21 @@ const socialLinks = [
   ['YouTube', 'https://www.youtube.com/@keegabit', 'red'],
 ]
 
+const seenProjectsKey = 'keegabit-seen-projects'
+
+function getSeenProjects() {
+  try {
+    const storedProjects = JSON.parse(
+      window.localStorage.getItem(seenProjectsKey) ?? '[]',
+    )
+    return Array.isArray(storedProjects)
+      ? storedProjects.filter((slug): slug is string => typeof slug === 'string')
+      : []
+  } catch {
+    return []
+  }
+}
+
 function getProjectSlug(hash: string) {
   return hash.match(/^#\/projects\/([^/]+)/)?.[1]
 }
@@ -39,6 +54,7 @@ function App() {
   const reduceMotion = useReducedMotion()
   const [hash, setHash] = useState(() => window.location.hash)
   const hashRef = useRef(hash)
+  const [seenProjectSlugs, setSeenProjectSlugs] = useState(getSeenProjects)
   const [projectNavigation, setProjectNavigation] = useState({
     isDetailNavigation: false,
     direction: 1,
@@ -81,6 +97,22 @@ function App() {
   useEffect(() => {
     if (!activeProject) return
 
+    setSeenProjectSlugs((current) => {
+      if (current.includes(activeProject.slug)) return current
+
+      const next = [...current, activeProject.slug]
+      try {
+        window.localStorage.setItem(seenProjectsKey, JSON.stringify(next))
+      } catch {
+        // Browsing still works when storage is unavailable.
+      }
+      return next
+    })
+  }, [activeProject])
+
+  useEffect(() => {
+    if (!activeProject) return
+
     const sectionId = hash.match(/^#\/projects\/[^/]+\/([^/]+)/)?.[1]
     if (sectionId) {
       requestAnimationFrame(() => {
@@ -110,6 +142,7 @@ function App() {
           {activeProject ? (
             <ProjectPage
               project={activeProject}
+              seenProjectSlugs={seenProjectSlugs}
               isDetailNavigation={projectNavigation.isDetailNavigation}
               navigationDirection={projectNavigation.direction}
               onNavigationComplete={() =>
