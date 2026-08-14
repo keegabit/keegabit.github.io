@@ -481,16 +481,20 @@ export const projects: Project[] = [
   },
   {
     slug: 'dum-daw',
-    title: 'DAW FTW',
+    title: 'Siren',
     label: 'Web DAW',
-    summary: 'A digital audio workstation for the web.',
+    summary: 'A fully built digital audio workstation for the web, similar to FL Studio.',
     card: {
-      summary: 'A digital audio workstation for the web.',
+      summary: 'A finished web DAW, live at dumbflstudio.com.',
       labelColor: 'purple',
       buttonColor: 'purple',
-      badge: 'Prototype',
+      badge: 'Live',
     },
     visual: 'dum-daw',
+    externalLink: {
+      label: 'Open dumbflstudio.com',
+      href: 'https://dumbflstudio.com',
+    },
     sections: [
       {
         id: 'what-it-is',
@@ -498,12 +502,12 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'DAW FTW is a digital audio workstation for the web. It brings the core surfaces of a music production setup into one browser workspace: a sound library, channel rack, piano roll, playlist, instruments, and mixer.',
+            text: 'Siren is a fully built digital audio workstation for the web, similar to FL Studio but designed to run in the browser. It brings the core surfaces of a music production setup into one workspace: a sound library, channel rack, piano roll, playlist, instruments, and mixer.',
           },
           {
             type: 'image',
             src: '/dum-daw.png',
-            alt: 'DAW FTW browser-based digital audio workstation interface',
+            alt: 'Siren browser-based digital audio workstation interface',
             caption: 'A web DAW workspace for arranging patterns, shaping instruments, and mixing tracks.',
           },
         ],
@@ -514,7 +518,7 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'I wanted to explore what a music-making tool feels like when it opens directly in a browser. DAW FTW is designed around a familiar production flow, while keeping the whole workspace available without a traditional desktop installation.',
+            text: 'I wanted to build a complete music production environment that opens directly in a browser. Siren keeps the familiar flow of a desktop DAW while making the whole workspace available without a traditional installation.',
           },
         ],
       },
@@ -524,7 +528,7 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'The interface is organized around the way a track is built: choose sounds, create patterns, arrange them on a playlist, shape instruments, and route everything through a mixer. The current project is a working web interface and a foundation for deeper browser-native audio features.',
+            text: 'The finished app is organized around the way a track is built: choose sounds, create patterns, arrange them on a playlist, shape instruments, and route everything through a mixer. It is a complete web-based DAW available at dumbflstudio.com.',
           },
           {
             type: 'list',

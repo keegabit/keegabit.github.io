@@ -45,7 +45,7 @@ export default function ProjectVisual({
         {project.visual === 'dum-daw' && (
           <img
             src="/dum-daw.png"
-            alt="DumDAW digital audio workstation interface"
+            alt="Siren digital audio workstation interface"
             width="1906"
             height="1011"
           />
