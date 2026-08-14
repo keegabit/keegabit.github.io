@@ -113,8 +113,8 @@ export const projects: Project[] = [
     },
     visual: 'tp-games',
     externalLink: {
-      label: 'Visit tp.games',
-      href: 'https://tp.games/',
+      label: 'Play at play.tp.games',
+      href: 'https://play.tp.games/',
     },
     sections: [
       {

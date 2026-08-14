@@ -29,12 +29,24 @@ export default function ProjectCard({ project }: { project: Project }) {
           <h3>{project.title}</h3>
           <p>{project.card.summary}</p>
         </div>
+        <div className="project-actions">
         <a
           className={`chunky-button ${project.card.buttonColor}-button`}
           href={`#/projects/${project.slug}`}
         >
           Read the story →
         </a>
+          {project.externalLink && (
+            <a
+              className="project-live-link"
+              href={project.externalLink.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {project.externalLink.label}
+            </a>
+          )}
+        </div>
       </div>
     </motion.article>
   )

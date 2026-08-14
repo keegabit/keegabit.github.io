@@ -368,6 +368,35 @@ nav a:hover {
   font-weight: 700;
 }
 
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.project-live-link {
+  display: inline-flex;
+  min-height: 45px;
+  padding: 0 13px;
+  align-items: center;
+  border: 2px solid #cdddea;
+  border-radius: 12px;
+  color: var(--ink);
+  background: var(--white);
+  box-shadow: 0 3px 0 #bdd0dd;
+  font-size: 0.75rem;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.project-live-link:hover {
+  border-color: #72c6e8;
+  color: #0879ac;
+  transform: translateY(-1px);
+}
+
 .tiny-label {
   min-height: 24px;
   padding: 2px 8px;
