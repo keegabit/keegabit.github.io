@@ -483,9 +483,9 @@ export const projects: Project[] = [
     slug: 'dum-daw',
     title: 'Siren',
     label: 'Web DAW',
-    summary: 'A fully built digital audio workstation for the web, similar to FL Studio.',
+    summary: 'A full digital audio workstation that brings serious music production to the browser.',
     card: {
-      summary: 'A finished web DAW, live at dumbflstudio.com.',
+      summary: 'A finished web DAW for making complete tracks, live at dumbflstudio.com.',
       labelColor: 'purple',
       buttonColor: 'purple',
       badge: 'Live',
@@ -502,13 +502,13 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'Siren is a fully built digital audio workstation for the web, similar to FL Studio but designed to run in the browser. It brings the core surfaces of a music production setup into one workspace: a sound library, channel rack, piano roll, playlist, instruments, and mixer.',
+            text: 'Siren is a full digital audio workstation that runs in the browser. It is not a mockup or a prototype. You can open it at dumbflstudio.com and use the same core tools you expect from a desktop DAW: a sound library, channel rack, piano roll, playlist, instruments, effects, and a mixer.',
           },
           {
             type: 'image',
             src: '/dum-daw.png',
             alt: 'Siren browser-based digital audio workstation interface',
-            caption: 'A web DAW workspace for arranging patterns, shaping instruments, and mixing tracks.',
+            caption: 'A complete browser workspace for arranging patterns, shaping instruments, and mixing tracks.',
           },
         ],
       },
@@ -518,7 +518,7 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'I wanted to build a complete music production environment that opens directly in a browser. Siren keeps the familiar flow of a desktop DAW while making the whole workspace available without a traditional installation.',
+            text: 'I wanted to see how far the browser could go when I treated it like a real audio platform instead of a place to fake a DAW interface. The result is a music production environment that opens instantly, keeps the familiar desktop workflow, and does not ask you to install a traditional desktop application.',
           },
         ],
       },
@@ -528,16 +528,111 @@ export const projects: Project[] = [
         blocks: [
           {
             type: 'paragraph',
-            text: 'The finished app is organized around the way a track is built: choose sounds, create patterns, arrange them on a playlist, shape instruments, and route everything through a mixer. It is a complete web-based DAW available at dumbflstudio.com.',
+            text: 'The React interface is the control plane. It shows the project and captures what the musician wants to do, while the audio engine handles the actual sound separately. That separation is what lets the interface rerender without interrupting the music.',
           },
           {
             type: 'list',
             items: [
-              'Browser-based sound library and sample workflow',
-              'Pattern sequencing and playlist arrangement',
-              'Instrument controls and piano-roll editing',
-              'Mixer routing for web-based tracks and effects',
+              'A browser-based sound library and sample workflow',
+              'Pattern sequencing, playlist arrangement, and piano-roll editing',
+              'A modular mixer with inserts, sends, sidechains, and a master bus',
+              'Instruments and effects that can run as JavaScript, WebAssembly, or WAM2 plugins',
             ],
+          },
+        ],
+      },
+      {
+        id: 'audio-engine',
+        title: 'The audio engine',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'The important work happens inside Web Audio and AudioWorklets. React handles clicks, layout, and editing, but it never tries to generate audio. Each instrument or effect gets its own audio node and processor, so the real-time work stays on the browser audio thread instead of competing with the interface.',
+          },
+          {
+            type: 'code',
+            language: 'text',
+            caption: 'The high-level signal path',
+            code: `React editors and transport
+          ↓
+Project model and scheduler
+          ↓ timestamped MIDI and automation
+Web Audio mixer graph
+          ↓ sends, sidechains, and inserts
+WAM2 AudioWorklets → master bus → speakers`,
+          },
+          {
+            type: 'paragraph',
+            text: 'Inside a worklet, processors handle oscillators, envelopes, filters, delay lines, compression, distortion, reverb, MIDI events, and parameter changes. Events are timestamped and placed at the right sample offset inside the current audio block. Queues and buffers are bounded and preallocated, and a failing processor is silenced rather than allowed to produce broken audio.',
+          },
+        ],
+      },
+      {
+        id: 'wasm-and-plugins',
+        title: 'Portable DSP and plugins',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'One of the parts I am most excited about is sharing DSP between native and browser builds. Webler, for example, uses a C++ synth core compiled to WebAssembly. The same engine can power a native plugin and a browser instrument, while the worklet takes care of feeding it events and copying the stereo output back into the graph.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Gridline also supports WAM2, the browser-native plugin format. A hosted effect is created once, registered with the AudioContext, placed into an insert chain, and kept alive even when its editor window is closed. Opening a plugin window only attaches a GUI. It does not create a second audio instance.',
+          },
+          {
+            type: 'list',
+            items: [
+              'Plugin descriptors, parameters, MIDI, automation, and state all have a shared contract',
+              'WAM2 nodes can live in inserts, sends, sidechains, and the master bus',
+              'Native VST3 and browser WAM builds can share the same portable DSP core',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'mixer-and-scheduling',
+        title: 'Mixer and scheduling',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'The mixer keeps structural changes separate from everyday control changes. Moving a fader or turning a knob updates the existing graph. Changing the routing, insert order, or sidechain topology triggers an intentional rebuild. That means normal performance work stays cheap and the app does not disconnect and recreate every plugin just because a parameter changed.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Playback looks ahead by half a second and schedules events against the AudioContext clock, not the UI clock. MIDI notes and automation are sent with timestamps, so they land consistently even when the main thread is busy for a moment. Automation targets a stable plugin instance and parameter ID, which keeps saved values separate from values being played back by a clip.',
+          },
+          {
+            type: 'callout',
+            title: 'The honest tradeoff',
+            text: 'The current scheduler handles measured interface stalls well, but an extremely long main-thread stall could still outrun the lookahead window. Moving more sequencing into a worklet is one of the next improvements I want to make.',
+          },
+        ],
+      },
+      {
+        id: 'scale-and-state',
+        title: 'Built for real sessions',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'A DAW has to stay useful once a project gets big. The playlist and piano roll use canvas rendering and viewport indexes instead of mounting a DOM element for every note and clip. The scheduler compiles arrangement events into compact typed arrays, so it can jump straight to the events it needs instead of scanning the entire song every step.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Projects are versioned and can embed binary assets with byte lengths and SHA-256 checksums. The app also exposes project-level commands for inspecting and editing tracks, notes, patterns, mixer channels, plugins, routing, and transport. That gives AI tools a clean way to work with a song without pretending to be a person clicking around the UI.',
+          },
+        ],
+      },
+      {
+        id: 'what-is-next',
+        title: 'Where it is going',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'There are still clear boundaries. The browser cannot load an arbitrary native VST3 file, so a marketplace plugin needs to ship a WAM2 build as well. Some native and web parity work is still in progress, and offline rendering does not yet cover every sample-backed or hosted-WAM project.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Even with those limits, Siren is already much more than a browser music toy. The interesting part is the collection of systems working together: real-time worklet DSP, persistent plugin instances, a host-owned mixer, sample-accurate automation, portable project state, scalable editors, and a credible path between native and browser audio.',
           },
         ],
       },
