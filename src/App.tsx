@@ -18,6 +18,9 @@ const socialLinks = [
 ]
 
 const seenProjectsKey = 'keegabit-seen-projects'
+const homeProjects = [...projects].sort((a, b) =>
+  Number(b.slug === 'dum-daw') - Number(a.slug === 'dum-daw'),
+)
 
 function getSeenProjects() {
   try {
@@ -226,7 +229,7 @@ function App() {
             </Reveal>
 
             <div className="project-grid">
-              {projects.map((project) => (
+              {homeProjects.map((project) => (
                 <Reveal key={project.slug}>
                   <ProjectCard project={project} />
                 </Reveal>
